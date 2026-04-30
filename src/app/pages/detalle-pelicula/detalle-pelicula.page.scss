@@ -1,0 +1,402 @@
+ion-content {
+  --background: var(--ion-color-primary);
+}
+
+// ── INFO PRINCIPAL ──────────────────────────────
+.info-card {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: var(--ion-color-secondary);
+  margin: 12px;
+  border-radius: 12px;
+  align-items: flex-start;
+
+  .poster {
+    width: 170px;
+    min-width: 140px;
+    height: 248px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .info-texto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 4px; // pequeño respiro arriba
+    min-width: 0;     // evita overflow del texto
+
+    .label {
+      color: var(--ion-color-tertiary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin: 6px 0 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .valor {
+      color: white;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .edad {
+      display: inline-block;
+      background: var(--ion-color-tertiary);
+      color: black;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+  }
+}
+
+// ── SECCIONES ───────────────────────────────────
+.seccion {
+  padding: 0 16px 16px;
+
+  .seccion-titulo {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+}
+
+.sinopsis-box {
+  background: var(--ion-color-secondary);
+  border-radius: 10px;
+  padding: 14px;
+
+  p {
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+// ── SELECTOR FECHA ──────────────────────────────
+.fecha-select {
+  background: var(--ion-color-secondary);
+  color: white;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+// ── HORARIOS ────────────────────────────────────
+.horarios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .horario-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+    background: var(--ion-color-secondary);
+    color: white;
+    border: 2px solid var(--ion-color-tertiary);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+
+    .sala-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      opacity: 0.7;
+    }
+    .hora-h {
+      color: var(--ion-color-tertiary);
+      font-weight: 700;
+      margin-left: 2px;
+    }
+
+    &:hover {
+      background: var(--ion-color-tertiary);
+      color: black;
+
+      .hora-h {
+        color: black;
+      }
+    }
+  }
+}
+
+.sin-sesiones {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+.sala-label-titulo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #aaa;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+
+  ion-icon {
+    color: var(--ion-color-tertiary);
+    font-size: 1rem;
+  }
+}
+
+.sala-bloque {
+  margin-bottom: 16px;
+}
+// ── MEDIA ESTRELLAS ──────────────────────────────
+.media-estrellas {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 2px;
+
+  ion-icon {
+    color: var(--ion-color-tertiary);
+    font-size: 0.95rem;
+  }
+
+  .media-num {
+    color: var(--ion-color-tertiary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-left: 4px;
+  }
+
+  .media-total {
+    color: #666;
+    font-size: 0.75rem;
+  }
+}
+
+// ── VALORACIONES ─────────────────────────────────
+.mi-valoracion-card {
+  background: var(--ion-color-secondary);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.mi-valoracion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .mi-valoracion-label {
+    color: var(--ion-color-tertiary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .mi-valoracion-acciones {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+}
+
+.btn-valorar {
+  width: 100%;
+  background: transparent;
+  border: 1px dashed #444;
+  border-radius: 10px;
+  color: #aaa;
+  font-size: 0.9rem;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:active { border-color: var(--ion-color-tertiary); color: var(--ion-color-tertiary); }
+}
+
+.btn-editar-val {
+  background: transparent;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: #aaa;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.btn-eliminar-val {
+  background: transparent;
+  border: none;
+  color: #e05c5c;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+
+  ion-icon { font-size: 1.1rem; }
+}
+
+.estrellas-display {
+  display: flex;
+  gap: 4px;
+
+  ion-icon {
+    color: var(--ion-color-tertiary);
+    font-size: 1.3rem;
+  }
+
+  &.small ion-icon { font-size: 0.95rem; }
+}
+
+.mi-comentario {
+  color: #ccc;
+  font-size: 0.88rem;
+  margin: 8px 0 0;
+  line-height: 1.5;
+}
+
+.form-val-titulo {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.estrellas-input {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+
+  .estrella-selectable {
+    color: var(--ion-color-tertiary);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.1s;
+
+    &:active { transform: scale(1.2); }
+  }
+}
+
+.comentario-input {
+  width: 100%;
+  background: var(--ion-color-primary);
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+  padding: 10px 12px;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  resize: none;
+  line-height: 1.5;
+  margin-bottom: 12px;
+
+  &::placeholder { color: #555; }
+  &:focus { border-color: var(--ion-color-tertiary); }
+}
+
+.form-val-botones {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 8px;
+}
+
+.btn-cancelar-val {
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #aaa;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.btn-guardar-val {
+  background: var(--ion-color-tertiary);
+  border: none;
+  border-radius: 8px;
+  color: black;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 10px;
+  cursor: pointer;
+
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+}
+
+// ── RESEÑAS ──────────────────────────────────────
+.resena-card {
+  background: var(--ion-color-secondary);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.resena-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+
+  .resena-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--ion-color-tertiary);
+    color: black;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .resena-info {
+    flex: 1;
+
+    .resena-nombre {
+      color: white;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin: 0 0 3px;
+    }
+  }
+
+  .resena-fecha {
+    color: #666;
+    font-size: 0.75rem;
+    margin: 0;
+    flex-shrink: 0;
+  }
+}
+
+.resena-comentario {
+  color: #ccc;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+}
+ion-content {
+  --background: var(--ion-color-primary);
+  --overflow: auto;
+}
+
+.page-content {
+  min-height: 100%;
+  padding-bottom: 40px;
+}

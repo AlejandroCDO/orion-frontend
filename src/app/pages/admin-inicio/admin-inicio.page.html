@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>ORION</ion-title>
+    <ion-buttons slot="end">
+      <div class="avatar" (click)="irAPerfil()">{{ userInitial }}</div>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-searchbar
+    placeholder="Buscar película"
+    (ionInput)="buscar($event)">
+  </ion-searchbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- BANNER -->
+  <div class="banner-wrapper">
+    <div class="banner-slider" #slider>
+      @for (banner of banners; track banner) {
+        <div class="banner-slide">
+          <img [src]="banner" alt="banner"/>
+        </div>
+      }
+    </div>
+    <div class="dots">
+      @for (b of banners; track b; let i = $index) {
+        <span class="dot" [class.active]="i === activeBanner"></span>
+      }
+    </div>
+  </div>
+
+  <!-- GRID DE PELÍCULAS -->
+  <div class="grid">
+    @for (pelicula of peliculaList | filtro: textoBuscar: 'titulo'; track pelicula._id) {
+      <div class="pelicula-card">
+        <img [src]="pelicula.posterURL" [alt]="pelicula.titulo" class="poster"
+             (click)="verDetalle(pelicula._id)"/>
+        <p class="titulo">{{ pelicula.titulo }}</p>
+        <div class="card-actions">
+          <button class="action-btn edit" (click)="editarPelicula(pelicula._id)">
+            <ion-icon name="create-outline"></ion-icon>
+          </button>
+          <button class="action-btn delete" (click)="eliminarPelicula(pelicula._id, pelicula.titulo)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if ((peliculaList | filtro: textoBuscar: 'titulo').length === 0) {
+    <div class="no-results">
+      <ion-icon name="film-outline"></ion-icon>
+      <p>No hay películas</p>
+    </div>
+  }
+
+</ion-content>
+
+<!-- FAB MENÚ -->
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button color="tertiary">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button (click)="irAAnadirSesion()">
+      <ion-icon name="calendar-outline" style="color: black;"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="irAAnadirPelicula()">
+      <ion-icon name="film-outline" style="color: black;"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>

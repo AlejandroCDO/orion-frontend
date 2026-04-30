@@ -1,3 +1,83 @@
-<ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app>
+<ion-menu contentId="main-content" side="start">
+  <ion-header>
+    <ion-toolbar>
+      <div class="menu-header">
+        <div class="menu-avatar">{{ userInitial }}</div>
+        <div class="menu-user-info">
+          <p class="menu-saludo">Hola,</p>
+          <p class="menu-email">{{ userEmail }}</p>
+        </div>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list lines="none">
+
+      <!-- CLIENTE -->
+      @if (role === 'client') {
+        <p class="menu-seccion-label">NAVEGACIÓN</p>
+
+        <ion-item [button]="true" (click)="navegar('/inicio')">
+          <ion-icon name="film-outline" slot="start"></ion-icon>
+          <ion-label>Cartelera</ion-label>
+        </ion-item>
+
+        <ion-item [button]="true" (click)="navegar('/mis-reservas')">
+          <ion-icon name="ticket-outline" slot="start"></ion-icon>
+          <ion-label>Mis reservas</ion-label>
+        </ion-item>
+
+        <ion-item [button]="true" (click)="navegar('/mis-resenas')">
+          <ion-icon name="chatbubble-outline" slot="start"></ion-icon>
+          <ion-label>Mis reseñas</ion-label>
+        </ion-item>
+
+        <ion-item [button]="true" (click)="navegar('/favs')">
+          <ion-icon name="heart-outline" slot="start"></ion-icon>
+          <ion-label>Favoritos</ion-label>
+        </ion-item>
+
+        <ion-item [button]="true" (click)="navegar('/watchlist')">
+          <ion-icon name="bookmark-outline" slot="start"></ion-icon>
+          <ion-label>Watchlist</ion-label>
+        </ion-item>
+
+        <ion-item [button]="true" (click)="navegar('/perfil')">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-label>Editar perfil</ion-label>
+        </ion-item>
+      }
+
+      <!-- ADMIN -->
+      @if (role === 'admin') {
+        <p class="menu-seccion-label">ADMINISTRACIÓN</p>
+
+        <ion-item [button]="true" (click)="navegar('/admin-inicio')">
+          <ion-icon name="film-outline" slot="start"></ion-icon>
+          <ion-label>Películas</ion-label>
+        </ion-item>
+
+        <ion-item [button]="true" (click)="navegar('/admin-usuarios')">
+          <ion-icon name="people-outline" slot="start"></ion-icon>
+          <ion-label>Usuarios</ion-label>
+        </ion-item>
+
+        <ion-item [button]="true" (click)="navegar('/admin-sesiones')">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <ion-label>Sesiones</ion-label>
+        </ion-item>
+      }
+
+      <div class="menu-divider"></div>
+
+      <ion-item [button]="true" (click)="cerrarSesion()" class="item-logout">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        <ion-label>Cerrar sesión</ion-label>
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main-content"></ion-router-outlet>

@@ -1,0 +1,249 @@
+ion-content {
+  --background: var(--ion-color-primary);
+}
+
+.form-wrapper {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-card {
+  background: var(--ion-color-secondary);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .card-titulo {
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    color: var(--ion-color-tertiary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    .hint {
+      color: #666;
+      font-size: 0.7rem;
+      text-transform: none;
+      font-weight: 400;
+    }
+  }
+
+  input {
+    background: var(--ion-color-primary);
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    padding: 10px 12px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.2s;
+
+    &::placeholder { color: #555; }
+    &:focus { border-color: var(--ion-color-tertiary); }
+
+    // Fix para input type date/time en dark mode
+    &[type="date"], &[type="time"] {
+      color-scheme: dark;
+    }
+  }
+}
+
+.row-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+// ── BUSCADOR RESULTADOS ──────────────────────────
+.resultados-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 250px;
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid #333;
+  padding: 4px;
+}
+
+.resultado-item, .pelicula-elegida {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:active, &:hover {
+    background: rgba(255,255,255,0.05);
+  }
+
+  .mini-poster {
+    width: 44px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .resultado-info {
+    flex: 1;
+
+    .resultado-titulo {
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+
+    .resultado-sub {
+      color: #aaa;
+      font-size: 0.78rem;
+      margin: 0;
+    }
+  }
+}
+
+.pelicula-elegida {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--ion-color-tertiary);
+  border-radius: 10px;
+  cursor: default;
+
+  &:hover { background: rgba(255,255,255,0.04); }
+
+  .btn-cambiar {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+
+    ion-icon { font-size: 1.2rem; }
+  }
+}
+
+.sin-resultados {
+  color: #666;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 8px 0;
+}
+
+// ── HORARIOS ─────────────────────────────────────
+.horario-input-row {
+  display: flex;
+  gap: 8px;
+
+  input {
+    flex: 1;
+  }
+
+  .btn-add-hora {
+    background: var(--ion-color-tertiary);
+    border: none;
+    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    ion-icon {
+      font-size: 1.4rem;
+      color: black;
+    }
+  }
+}
+
+.horas-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  .hora-chip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--ion-color-primary);
+    border: 1px solid var(--ion-color-tertiary);
+    border-radius: 20px;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 4px 10px 4px 12px;
+
+    button {
+      background: transparent;
+      border: none;
+      color: #aaa;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 0;
+
+      ion-icon { font-size: 0.9rem; }
+
+      &:hover { color: #e05c5c; }
+    }
+  }
+}
+
+// ── BOTONES ──────────────────────────────────────
+.btn-group {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+  padding-bottom: 24px;
+
+  button {
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:active { opacity: 0.8; }
+    &:disabled { opacity: 0.4; cursor: not-allowed; }
+  }
+
+  .btn-cancelar {
+    background: transparent;
+    color: #aaa;
+    border: 1px solid #444;
+  }
+
+  .btn-confirmar {
+    background: var(--ion-color-tertiary);
+    color: black;
+  }
+}

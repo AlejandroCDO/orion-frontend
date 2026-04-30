@@ -1,0 +1,54 @@
+<ion-content>
+  <div class="login-container">
+
+    <h1 class="logo">ORION</h1>
+
+    <div class="card">
+      <h2 class="card-title">Iniciar Sesión</h2>
+
+      <ion-item lines="none" class="input-item">
+        <ion-label position="stacked">Correo electrónico*</ion-label>
+        <ion-input
+          type="email"
+          placeholder="Introduce el correo electrónico"
+          [(ngModel)]="email">
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="input-item">
+        <ion-label position="stacked">Contraseña*</ion-label>
+        <ion-input
+          type="password"
+          placeholder="Introduce la contraseña"
+          [(ngModel)]="password">
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="checkbox-item">
+        <ion-checkbox [(ngModel)]="isAdmin" slot="start"></ion-checkbox>
+        <ion-label>¿Eres propietario de un cine?</ion-label>
+      </ion-item>
+
+      @if (isAdmin) {
+        <ion-item lines="none" class="input-item">
+          <ion-label position="stacked">Código de acceso*</ion-label>
+          <ion-input
+            type="text"
+            placeholder="Introduce el código de acceso"
+            [(ngModel)]="accessCode">
+          </ion-input>
+        </ion-item>
+      }
+
+      <ion-button expand="block" class="login-btn" (click)="login()">
+        Iniciar sesión
+      </ion-button>
+
+      @if (!isAdmin) {
+        <p class="link" (click)="goToRegister()">¿Todavía no estás registrado?</p>
+        <p class="link">Olvidé mi contraseña</p>
+      }
+    </div>
+
+  </div>
+</ion-content>

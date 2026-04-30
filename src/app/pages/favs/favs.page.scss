@@ -1,0 +1,58 @@
+ion-content {
+  --background: var(--ion-color-primary);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 32px;
+  text-align: center;
+
+  ion-icon { font-size: 4rem; color: #555; margin-bottom: 16px; }
+  h3 { color: white; font-size: 1.2rem; font-weight: 700; margin: 0 0 8px; }
+  p { color: #aaa; font-size: 0.9rem; margin: 0; }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 12px;
+}
+
+.pelicula-card {
+  background: var(--ion-color-secondary);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+
+  .poster {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+  }
+
+  .titulo {
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 6px 8px 0;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sub {
+    color: #888;
+    font-size: 0.75rem;
+    padding: 2px 8px 10px;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

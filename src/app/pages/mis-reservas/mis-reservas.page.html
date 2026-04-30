@@ -1,0 +1,99 @@
+<app-header backUrl="/inicio"></app-header>
+
+<ion-content>
+
+  <!-- ESTADO VACÍO -->
+  @if (!cargando && reservas.length === 0) {
+    <div class="empty-state">
+      <ion-icon name="ticket-outline"></ion-icon>
+      <h3>Sin reservas</h3>
+      <p>Todavía no tienes ninguna entrada comprada</p>
+      <button class="btn-ir" (click)="irAInicio()">Ver cartelera</button>
+    </div>
+  }
+
+  <!-- CARGANDO -->
+  @if (cargando) {
+    <div class="empty-state">
+      <ion-icon name="film-outline"></ion-icon>
+      <p>Cargando tus reservas...</p>
+    </div>
+  }
+
+  <!-- LISTA DE RESERVAS -->
+  @if (!cargando && reservas.length > 0) {
+    <div class="reservas-lista">
+      @for (reserva of reservas; track reserva._id) {
+        <div class="reserva-card">
+
+          <!-- CABECERA CARD -->
+          <div class="card-header">
+            <img [src]="reserva.sesionId?.movieId?.posterURL" class="poster"/>
+            <div class="card-info">
+              <p class="pelicula-titulo">{{ reserva.sesionId?.movieId?.titulo }}</p>
+              <div class="badges">
+              <span class="badge hora">
+                <ion-icon name="time-outline"></ion-icon>
+                  {{ reserva.horaElegida || reserva.sesionId?.hora }}
+                </span>
+                <span class="badge sala">
+                  <ion-icon name="location-outline"></ion-icon>
+                    {{ reserva.sesionId?.sala }}
+                </span>
+              </div>
+              <p class="fecha">{{ formatearFecha(reserva.sesionId?.fecha) }}</p>
+            </div>
+          </div>
+
+          <!-- SEPARADOR TIPO TICKET -->
+          <div class="ticket-separador">
+            <div class="circulo izq"></div>
+            <div class="linea-punteada"></div>
+            <div class="circulo der"></div>
+          </div>
+
+          <!-- DETALLE TICKET -->
+          <div class="card-detalle">
+            <div class="detalle-col">
+              <p class="detalle-label">Asientos</p>
+              <div class="asientos-chips">
+                @for (asiento of reserva.asientosSeleccionados; track asiento) {
+                  <span class="chip">{{ asiento }}</span>
+                }
+              </div>
+            </div>
+            <div class="detalle-col">
+              <p class="detalle-label">Entradas</p>
+              @if (reserva.entradas.adulto > 0) {
+                <p class="detalle-valor">Adulto x{{ reserva.entradas.adulto }}</p>
+              }
+              @if (reserva.entradas.reducido > 0) {
+                <p class="detalle-valor">Reducida x{{ reserva.entradas.reducido }}</p>
+              }
+              @if (reserva.entradas.jubilado > 0) {
+                <p class="detalle-valor">Jubilado x{{ reserva.entradas.jubilado }}</p>
+              }
+            </div>
+            <div class="detalle-col total-col">
+              <p class="detalle-label">Total</p>
+              <p class="total-precio">{{ reserva.totalPagado.toFixed(2) }}€</p>
+            </div>
+          </div>
+
+          <!-- CANCELAR -->
+          <div class="card-footer">
+            <p class="fecha-reserva">
+              Comprada el {{ formatearFechaCorta(reserva.fechaReserva) }}
+            </p>
+            <button class="btn-cancelar" (click)="cancelar(reserva._id)">
+              <ion-icon name="trash-outline"></ion-icon>
+              Cancelar
+            </button>
+          </div>
+
+        </div>
+      }
+    </div>
+  }
+
+</ion-content>

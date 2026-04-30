@@ -1,0 +1,105 @@
+<app-header backUrl="/inicio"></app-header>
+
+<ion-content>
+  <div class="page-wrapper">
+
+    @if (cargando) {
+      <div class="empty-state">
+        <ion-icon name="film-outline"></ion-icon>
+        <p>Cargando reseñas...</p>
+      </div>
+    }
+
+    @if (!cargando && valoraciones.length === 0) {
+      <div class="empty-state">
+        <ion-icon name="star-outline"></ion-icon>
+        <h3>Sin reseñas</h3>
+        <p>Aún no has valorado ninguna película</p>
+      </div>
+    }
+
+    @if (!cargando && valoraciones.length > 0) {
+      <div class="lista">
+        @for (v of valoraciones; track v._id) {
+          <div class="resena-card">
+
+            <!-- CABECERA -->
+            <div class="resena-header">
+              <img
+                [src]="v.peliculaId?.posterURL"
+                class="poster"
+                (click)="verPelicula(v.peliculaId?._id)"/>
+              <div class="resena-info">
+                <p class="pelicula-titulo" (click)="verPelicula(v.peliculaId?._id)">
+                  {{ v.peliculaId?.titulo }}
+                </p>
+                <p class="resena-fecha">{{ v.createdAt | date: 'd/M/yyyy' }}</p>
+
+                @if (editandoId !== v._id) {
+                  <div class="estrellas-display">
+                    @for (e of estrellas; track e) {
+                      <ion-icon [name]="e <= v.puntuacion ? 'star' : 'star-outline'"></ion-icon>
+                    }
+                  </div>
+                }
+              </div>
+
+              @if (editandoId !== v._id) {
+                <div class="acciones">
+                  <button class="btn-accion editar" (click)="abrirEdicion(v)">
+                    <ion-icon name="create-outline"></ion-icon>
+                  </button>
+                  <button class="btn-accion eliminar" (click)="eliminar(v)">
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </button>
+                </div>
+              }
+            </div>
+
+            <!-- COMENTARIO -->
+            @if (editandoId !== v._id && v.comentario) {
+              <p class="comentario">{{ v.comentario }}</p>
+            }
+
+            <!-- FORMULARIO EDICIÓN -->
+            @if (editandoId === v._id) {
+              <div class="form-edicion">
+                <div class="estrellas-input">
+                  @for (e of estrellas; track e) {
+                    <ion-icon
+                      [name]="e <= (estrellaHover || formEdicion.puntuacion) ? 'star' : 'star-outline'"
+                      class="estrella-selectable"
+                      (mouseenter)="estrellaHover = e"
+                      (mouseleave)="estrellaHover = 0"
+                      (click)="formEdicion.puntuacion = e">
+                    </ion-icon>
+                  }
+                </div>
+
+                <textarea
+                  [(ngModel)]="formEdicion.comentario"
+                  placeholder="Escribe tu opinión (opcional)"
+                  class="comentario-input"
+                  rows="3">
+                </textarea>
+
+                <div class="form-botones">
+                  <button class="btn-cancelar-f" (click)="cancelarEdicion()">
+                    <ion-icon name="close-outline"></ion-icon>
+                    Cancelar
+                  </button>
+                  <button class="btn-guardar-f" (click)="guardarEdicion(v)" [disabled]="guardando">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    @if (guardando) { Guardando... } @else { Guardar }
+                  </button>
+                </div>
+              </div>
+            }
+
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</ion-content>

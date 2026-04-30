@@ -1,0 +1,239 @@
+ion-content {
+  --background: var(--ion-color-primary);
+}
+
+// ── ESTADO VACÍO ─────────────────────────────────
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 32px;
+  text-align: center;
+
+  ion-icon {
+    font-size: 4rem;
+    color: #555;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+
+  p {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin: 0 0 24px;
+  }
+
+  .btn-ir {
+    background: var(--ion-color-tertiary);
+    color: black;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 28px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+}
+
+// ── LISTA ────────────────────────────────────────
+.reservas-lista {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// ── CARD TICKET ──────────────────────────────────
+.reserva-card {
+  background: var(--ion-color-secondary);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+
+  .poster {
+    width: 80px;
+    min-width: 80px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    .pelicula-titulo {
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .fecha {
+      color: #aaa;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+  }
+}
+
+.badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  .badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+
+    ion-icon { font-size: 0.9rem; }
+
+    &.hora {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      border: 1px solid var(--ion-color-tertiary);
+    }
+
+    &.sala {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ccc;
+    }
+  }
+}
+
+// ── SEPARADOR TICKET ─────────────────────────────
+.ticket-separador {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: 0 -1px;
+
+  .circulo {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ion-color-primary);
+    flex-shrink: 0;
+
+    &.izq { margin-left: -10px; }
+    &.der { margin-right: -10px; }
+  }
+
+  .linea-punteada {
+    flex: 1;
+    border-top: 2px dashed rgba(255, 255, 255, 0.1);
+  }
+}
+
+// ── DETALLE TICKET ───────────────────────────────
+.card-detalle {
+  display: flex;
+  gap: 8px;
+  padding: 14px 16px;
+  justify-content: space-between;
+
+  .detalle-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .detalle-label {
+      color: var(--ion-color-tertiary);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+
+    .detalle-valor {
+      color: #ccc;
+      font-size: 0.8rem;
+      margin: 0;
+    }
+  }
+
+  .total-col {
+    align-items: flex-end;
+
+    .total-precio {
+      color: var(--ion-color-tertiary);
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin: 0;
+    }
+  }
+}
+
+.asientos-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  .chip {
+    background: var(--ion-color-primary);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+}
+
+// ── FOOTER CARD ──────────────────────────────────
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+  .fecha-reserva {
+    color: #666;
+    font-size: 0.75rem;
+    margin: 0;
+  }
+
+  .btn-cancelar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: #e05c5c;
+    border: 1px solid #e05c5c;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    ion-icon { font-size: 0.9rem; }
+
+    &:active {
+      background: #e05c5c;
+      color: white;
+    }
+  }
+}

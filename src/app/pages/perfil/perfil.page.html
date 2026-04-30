@@ -1,0 +1,167 @@
+<app-header backUrl="/inicio"></app-header>
+<ion-content>
+
+  @if (cargando) {
+    <div class="empty-state">
+      <p>Cargando perfil...</p>
+    </div>
+  }
+
+  @if (!cargando) {
+    <div class="perfil-wrapper">
+
+      <!-- AVATAR INICIAL -->
+      <div class="avatar-section">
+        <div class="avatar-grande">{{ perfil.nombre ? perfil.nombre.charAt(0).toUpperCase() : perfil.email.charAt(0).toUpperCase() }}</div>
+        <p class="avatar-email">{{ perfil.email }}</p>
+      </div>
+
+      <!-- CAMPOS -->
+      <div class="form-card">
+
+        <!-- NOMBRE -->
+        <div class="campo">
+          <div class="campo-header">
+            <div class="campo-label">
+              <ion-icon name="person-outline"></ion-icon>
+              <span>Nombre</span>
+            </div>
+            @if (editando !== 'nombre') {
+              <button class="btn-editar" (click)="editarCampo('nombre')">
+                <ion-icon name="create-outline"></ion-icon>
+              </button>
+            }
+          </div>
+          @if (editando === 'nombre') {
+            <input [(ngModel)]="perfil.nombre" placeholder="Tu nombre" class="campo-input"/>
+            <div class="campo-acciones">
+              <button class="btn-cancelar-campo" (click)="cancelarEdicion()">
+                <ion-icon name="close-outline"></ion-icon> Cancelar
+              </button>
+              <button class="btn-guardar-campo" (click)="guardarCampo()" [disabled]="guardando">
+                <ion-icon name="checkmark-outline"></ion-icon> Guardar
+              </button>
+            </div>
+          } @else {
+            <p class="campo-valor">{{ perfil.nombre || 'Sin especificar' }}</p>
+          }
+        </div>
+
+        <div class="campo-divider"></div>
+
+        <!-- APELLIDOS -->
+        <div class="campo">
+          <div class="campo-header">
+            <div class="campo-label">
+              <ion-icon name="person-outline"></ion-icon>
+              <span>Apellidos</span>
+            </div>
+            @if (editando !== 'apellidos') {
+              <button class="btn-editar" (click)="editarCampo('apellidos')">
+                <ion-icon name="create-outline"></ion-icon>
+              </button>
+            }
+          </div>
+          @if (editando === 'apellidos') {
+            <input [(ngModel)]="perfil.apellidos" placeholder="Tus apellidos" class="campo-input"/>
+            <div class="campo-acciones">
+              <button class="btn-cancelar-campo" (click)="cancelarEdicion()">
+                <ion-icon name="close-outline"></ion-icon> Cancelar
+              </button>
+              <button class="btn-guardar-campo" (click)="guardarCampo()" [disabled]="guardando">
+                <ion-icon name="checkmark-outline"></ion-icon> Guardar
+              </button>
+            </div>
+          } @else {
+            <p class="campo-valor">{{ perfil.apellidos || 'Sin especificar' }}</p>
+          }
+        </div>
+
+        <div class="campo-divider"></div>
+
+        <!-- TELÉFONO -->
+        <div class="campo">
+          <div class="campo-header">
+            <div class="campo-label">
+              <ion-icon name="call-outline"></ion-icon>
+              <span>Teléfono</span>
+            </div>
+            @if (editando !== 'telefono') {
+              <button class="btn-editar" (click)="editarCampo('telefono')">
+                <ion-icon name="create-outline"></ion-icon>
+              </button>
+            }
+          </div>
+          @if (editando === 'telefono') {
+            <input [(ngModel)]="perfil.telefono" placeholder="Tu teléfono" type="tel" class="campo-input"/>
+            <div class="campo-acciones">
+              <button class="btn-cancelar-campo" (click)="cancelarEdicion()">
+                <ion-icon name="close-outline"></ion-icon> Cancelar
+              </button>
+              <button class="btn-guardar-campo" (click)="guardarCampo()" [disabled]="guardando">
+                <ion-icon name="checkmark-outline"></ion-icon> Guardar
+              </button>
+            </div>
+          } @else {
+            <p class="campo-valor">{{ perfil.telefono || 'Sin especificar' }}</p>
+          }
+        </div>
+
+        <div class="campo-divider"></div>
+
+        <!-- EMAIL -->
+        <div class="campo">
+          <div class="campo-header">
+            <div class="campo-label">
+              <ion-icon name="mail-outline"></ion-icon>
+              <span>Email</span>
+            </div>
+            @if (editando !== 'email') {
+              <button class="btn-editar" (click)="editarCampo('email')">
+                <ion-icon name="create-outline"></ion-icon>
+              </button>
+            }
+          </div>
+          @if (editando === 'email') {
+            <input [(ngModel)]="perfil.email" placeholder="Tu email" type="email" class="campo-input"/>
+            <div class="campo-acciones">
+              <button class="btn-cancelar-campo" (click)="cancelarEdicion()">
+                <ion-icon name="close-outline"></ion-icon> Cancelar
+              </button>
+              <button class="btn-guardar-campo" (click)="guardarCampo()" [disabled]="guardando">
+                <ion-icon name="checkmark-outline"></ion-icon> Guardar
+              </button>
+            </div>
+          } @else {
+            <p class="campo-valor">{{ perfil.email }}</p>
+          }
+        </div>
+
+        <div class="campo-divider"></div>
+
+        <!-- CONTRASEÑA -->
+        <div class="campo">
+          <div class="campo-header">
+            <div class="campo-label">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <span>Contraseña</span>
+            </div>
+            <button class="btn-editar" (click)="abrirCambioPassword()">
+              <ion-icon name="create-outline"></ion-icon>
+            </button>
+          </div>
+          <p class="campo-valor">••••••••</p>
+        </div>
+
+      </div>
+
+      <!-- ELIMINAR CUENTA -->
+      <button class="btn-eliminar-cuenta" (click)="eliminarCuenta()">
+        <ion-icon name="trash-outline"></ion-icon>
+        Eliminar cuenta
+      </button>
+
+    </div>
+  }
+
+</ion-content>

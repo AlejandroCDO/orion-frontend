@@ -1,0 +1,97 @@
+ion-content {
+  --background: var(--ion-color-primary);
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 24px;
+}
+
+.logo {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: var(--ion-color-secondary);
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.card-title {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 2px solid var(--ion-color-tertiary);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.input-item {
+  --background: var(--ion-color-primary);
+  --color: white;
+  --placeholder-color: #aaa;
+  --border-radius: 8px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+
+  ion-label {
+    color: white !important;
+    font-size: 1rem !important;      // ← era 0.85rem
+    margin-bottom: 4px;
+  }
+
+  ion-input {
+    font-size: 1rem !important;      // ← añade esta línea
+    --placeholder-font-size: 1rem;   // ← añade esta línea
+  }
+}
+
+.checkbox-item {
+  --background: transparent;
+  --color: white;
+  margin-bottom: 12px;
+
+  ion-label {
+    color: white;
+    font-size: 1.05rem;   // ← era 0.9rem
+    font-weight: 600;     // ← añade negrita para que resalte más
+  }
+
+  ion-checkbox {
+    --checkbox-background-checked: var(--ion-color-tertiary);
+    --border-color-checked: var(--ion-color-tertiary);
+    margin-right: 10px;
+  }
+}
+
+.login-btn {
+  --background: var(--ion-color-tertiary);
+  --color: black;
+  font-weight: 700;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+}
+
+.link {
+  color: white;
+  font-size: 0.85rem;
+  text-align: center;
+  margin: 6px 0;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--ion-color-tertiary);
+  }
+}

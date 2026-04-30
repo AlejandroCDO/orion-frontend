@@ -1,0 +1,29 @@
+ion-toolbar {
+  --background: var(--ion-color-secondary);
+
+  ion-title {
+    color: white;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-align: center;
+  }
+
+  ion-back-button {
+    --color: white;
+  }
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--ion-color-tertiary);
+  color: black;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  border: 2px solid var(--ion-color-tertiary);
+}

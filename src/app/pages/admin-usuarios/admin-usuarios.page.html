@@ -1,0 +1,117 @@
+<app-header backUrl="/admin-inicio"></app-header>
+
+<ion-content>
+  <div class="page-wrapper">
+
+    <ion-searchbar
+      placeholder="Buscar por email o nombre"
+      (ionInput)="buscar($event)"
+      class="buscador">
+    </ion-searchbar>
+
+    @if (cargando) {
+      <div class="empty-state">
+        <p>Cargando usuarios...</p>
+      </div>
+    }
+
+    @if (!cargando && usuarios.length === 0) {
+      <div class="empty-state">
+        <ion-icon name="person-outline"></ion-icon>
+        <p>No hay usuarios registrados</p>
+      </div>
+    }
+
+    <div class="lista">
+      @for (u of usuariosFiltrados; track u._id) {
+        <div class="usuario-card">
+
+          <!-- CABECERA -->
+          <div class="usuario-header" (click)="toggleUsuario(u._id)">
+            <div class="usuario-avatar">{{ getNombre(u).charAt(0).toUpperCase() }}</div>
+            <div class="usuario-info">
+              <p class="usuario-nombre">{{ getNombre(u) }}</p>
+              <p class="usuario-email">{{ u.email }}</p>
+            </div>
+            <div class="usuario-acciones">
+              <button class="btn-eliminar-u" (click)="eliminarUsuario(u); $event.stopPropagation()">
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+              <ion-icon [name]="usuarioExpandido === u._id ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron"></ion-icon>
+            </div>
+          </div>
+
+          <!-- DETALLE EXPANDIDO -->
+          @if (usuarioExpandido === u._id) {
+            <div class="usuario-detalle">
+
+              <!-- INFO -->
+              <div class="detalle-seccion">
+                <p class="detalle-label">Información</p>
+                <div class="info-grid">
+                  @if (u.nombre) {
+                    <div class="info-item">
+                      <ion-icon name="person-outline"></ion-icon>
+                      <span>{{ u.nombre }} {{ u.apellidos }}</span>
+                    </div>
+                  }
+                  <div class="info-item">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <span>{{ u.email }}</span>
+                  </div>
+                  @if (u.telefono) {
+                    <div class="info-item">
+                      <ion-icon name="call-outline"></ion-icon>
+                      <span>{{ u.telefono }}</span>
+                    </div>
+                  }
+                  <div class="info-item">
+                    <ion-icon name="person-outline"></ion-icon>
+                    <span>Registrado el {{ u.createdAt | date: 'd/M/yyyy' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RESEÑAS -->
+              <div class="detalle-seccion">
+                <p class="detalle-label">Reseñas</p>
+
+                @if (!valoracionesCache[u._id]) {
+                  <p class="sin-data">Cargando reseñas...</p>
+                } @else if (valoracionesCache[u._id].length === 0) {
+                  <p class="sin-data">Sin reseñas</p>
+                } @else {
+                  @for (v of valoracionesCache[u._id]; track v._id) {
+                    <div class="resena-item">
+                      <div class="resena-item-header">
+                        <div class="resena-pelicula">
+                          <img [src]="v.peliculaId?.posterURL" class="mini-poster"/>
+                          <p class="resena-titulo">{{ v.peliculaId?.titulo }}</p>
+                        </div>
+                        <div class="resena-item-right">
+                          <div class="estrellas-small">
+                            @for (e of estrellas; track e) {
+                              <ion-icon [name]="e <= v.puntuacion ? 'star' : 'star-outline'"></ion-icon>
+                            }
+                          </div>
+                          <button class="btn-eliminar-resena" (click)="eliminarValoracion(v, u._id)">
+                            <ion-icon name="trash-outline"></ion-icon>
+                          </button>
+                        </div>
+                      </div>
+                      @if (v.comentario) {
+                        <p class="resena-comentario">{{ v.comentario }}</p>
+                      }
+                    </div>
+                  }
+                }
+              </div>
+
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+  </div>
+</ion-content>

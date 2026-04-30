@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login" text=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="register-container">
+
+    <h1 class="logo">ORION</h1>
+
+    <!-- STEPPER INDICADOR -->
+    <div class="stepper">
+      <div class="step" [class.active]="paso === 1" [class.done]="paso > 1">
+        <div class="step-circle">
+          @if (paso > 1) {
+            <ion-icon name="checkmark-outline"></ion-icon>
+          } @else {
+            <span>1</span>
+          }
+        </div>
+        <p class="step-label">Personal</p>
+      </div>
+      <div class="step-line" [class.done]="paso > 1"></div>
+      <div class="step" [class.active]="paso === 2">
+        <div class="step-circle">
+          <span>2</span>
+        </div>
+        <p class="step-label">Acceso</p>
+      </div>
+    </div>
+
+    <div class="card">
+
+      <!-- PASO 1 -->
+      @if (paso === 1) {
+        <h2 class="card-title">Datos personales</h2>
+        <p class="subtitle">Cuéntanos un poco sobre ti</p>
+
+        <div class="field">
+          <label>Nombre *</label>
+          <input type="text" [(ngModel)]="form.nombre" placeholder="Tu nombre"/>
+        </div>
+
+        <div class="field">
+          <label>Apellidos *</label>
+          <input type="text" [(ngModel)]="form.apellidos" placeholder="Tus apellidos"/>
+        </div>
+
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="tel" [(ngModel)]="form.telefono" placeholder="612 345 678"/>
+        </div>
+
+        <button class="btn-siguiente" (click)="siguientePaso()">
+          Siguiente
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button>
+      }
+
+      <!-- PASO 2 -->
+      @if (paso === 2) {
+        <h2 class="card-title">Datos de acceso</h2>
+        <p class="subtitle">Crea tus credenciales</p>
+
+        <div class="field">
+          <label>Correo electrónico *</label>
+          <input type="email" [(ngModel)]="form.email" placeholder="tu@email.com"/>
+        </div>
+
+        <div class="field">
+          <label>Contraseña *</label>
+          <input type="password" [(ngModel)]="form.password" placeholder="Mínimo 6 caracteres"/>
+        </div>
+
+        <div class="field">
+          <label>Repite la contraseña *</label>
+          <input type="password" [(ngModel)]="form.confirmPassword" placeholder="Misma contraseña"/>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn-atras" (click)="pasoAnterior()">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            Atrás
+          </button>
+          <button class="btn-registrar" (click)="register()" [disabled]="registrando">
+            @if (registrando) { Registrando... } @else { Crear cuenta }
+          </button>
+        </div>
+      }
+
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,195 @@
+ion-content {
+  --background: var(--ion-color-primary);
+}
+
+// ── INFO PELÍCULA ───────────────────────────────
+.info-card {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: var(--ion-color-secondary);
+  margin: 12px;
+  border-radius: 12px;
+
+  .poster {
+    width: 110px;
+    min-width: 110px;
+    height: 155px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .info-texto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .label {
+      color: var(--ion-color-tertiary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin: 8px 0 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      &:first-child { margin-top: 0; }
+    }
+
+    .valor {
+      color: white;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .hora-badge {
+      border: 2px solid var(--ion-color-tertiary);
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 6px;
+      width: fit-content;
+    }
+  }
+}
+
+// ── ENTRADAS ────────────────────────────────────
+.entradas-section {
+  margin: 0 12px;
+  background: var(--ion-color-secondary);
+  border-radius: 12px;
+  overflow: hidden;
+
+  .section-title {
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+.entrada-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  &:last-child { border-bottom: none; }
+
+  .entrada-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    .entrada-nombre {
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .entrada-precio {
+      color: var(--ion-color-tertiary);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin: 0;
+    }
+  }
+
+  .entrada-contador {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .cantidad {
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .btn-contador {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--ion-color-tertiary);
+      background: transparent;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+
+      ion-icon {
+        font-size: 1.1rem;
+        color: white;
+      }
+
+      &:not(:disabled):active {
+        background: var(--ion-color-tertiary);
+        ion-icon { color: black; }
+      }
+
+      &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// ── TOTAL ───────────────────────────────────────
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 16px;
+  margin: 12px 12px 0;
+
+  .total-label {
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .total-precio {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+}
+
+// ── FOOTER ──────────────────────────────────────
+.footer {
+  background: var(--ion-color-primary);
+  padding: 12px 16px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+
+  .btn-siguiente {
+    width: 100%;
+    background: var(--ion-color-tertiary);
+    color: black;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    &:not(:disabled):active {
+      opacity: 0.85;
+    }
+  }
+}

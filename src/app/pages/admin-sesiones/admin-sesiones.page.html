@@ -1,0 +1,159 @@
+<app-header backUrl="/admin-inicio"></app-header>
+
+<ion-content>
+  <div class="page-wrapper">
+
+    <ion-searchbar
+      placeholder="Buscar por película"
+      (ionInput)="buscar($event)"
+      class="buscador">
+    </ion-searchbar>
+
+    @if (cargando) {
+      <div class="empty-state">
+        <p>Cargando sesiones...</p>
+      </div>
+    }
+
+    @if (!cargando && sesiones.length === 0) {
+      <div class="empty-state">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <p>No hay sesiones</p>
+      </div>
+    }
+
+    <div class="lista">
+      @for (s of sesiones | filtro: textoBuscar: 'sala'; track s._id) {
+        <div class="sesion-card">
+
+          <!-- CABECERA -->
+          <div class="sesion-header" (click)="toggleSesion(s._id)">
+            <img [src]="s.movieId?.posterURL" class="mini-poster"/>
+            <div class="sesion-info">
+              <p class="sesion-titulo">{{ s.movieId?.titulo }}</p>
+              <div class="sesion-badges">
+                <span class="badge">
+                  <ion-icon name="location-outline"></ion-icon>
+                  {{ s.sala }}
+                </span>
+                <span class="badge">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  {{ formatearFecha(s.fecha) }}
+                </span>
+              </div>
+              <div class="horas-chips">
+                @for (h of s.hora; track h) {
+                  <span class="hora-chip">{{ h }}h</span>
+                }
+              </div>
+            </div>
+            <ion-icon
+              [name]="sesionExpandida === s._id ? 'chevron-up-outline' : 'chevron-down-outline'"
+              class="chevron">
+            </ion-icon>
+          </div>
+
+          <!-- DETALLE -->
+          @if (sesionExpandida === s._id) {
+            <div class="sesion-detalle">
+
+              @if (editando !== s._id) {
+                <!-- VISTA NORMAL -->
+                <div class="detalle-info">
+                  <div class="precio-grid">
+                    <div class="precio-item">
+                      <p class="precio-label">Adulto</p>
+                      <p class="precio-valor">{{ s.precio?.adulto }}€</p>
+                    </div>
+                    <div class="precio-item">
+                      <p class="precio-label">Reducida</p>
+                      <p class="precio-valor">{{ s.precio?.reducido }}€</p>
+                    </div>
+                    <div class="precio-item">
+                      <p class="precio-label">Jubilado</p>
+                      <p class="precio-valor">{{ s.precio?.jubilado }}€</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="detalle-acciones">
+                  <button class="btn-editar-s" (click)="abrirEdicion(s)">
+                    <ion-icon name="create-outline"></ion-icon>
+                    Editar
+                  </button>
+                  <button class="btn-eliminar-s" (click)="eliminarSesion(s)">
+                    <ion-icon name="trash-outline"></ion-icon>
+                    Eliminar
+                  </button>
+                </div>
+
+              } @else {
+                <!-- FORMULARIO EDICIÓN -->
+                <div class="form-edicion">
+
+                  <div class="field">
+                    <label>Sala</label>
+                    <input type="text" [(ngModel)]="form.sala" placeholder="Sala 1"/>
+                  </div>
+
+                  <div class="field">
+                    <label>Fecha</label>
+                    <input type="date" [(ngModel)]="form.fecha"/>
+                  </div>
+
+                  <div class="field">
+                    <label>Horarios</label>
+                    <div class="horario-input-row">
+                      <input type="time" [(ngModel)]="horaInput"/>
+                      <button class="btn-add-hora" (click)="addHora()">
+                        <ion-icon name="add-outline"></ion-icon>
+                      </button>
+                    </div>
+                    @if (form.hora?.length > 0) {
+                      <div class="horas-edit-chips">
+                        @for (h of form.hora; track h) {
+                          <span class="hora-edit-chip">
+                            {{ h }}
+                            <button (click)="removeHora(h)">
+                              <ion-icon name="close-outline"></ion-icon>
+                            </button>
+                          </span>
+                        }
+                      </div>
+                    }
+                  </div>
+
+                  <div class="row-fields">
+                    <div class="field">
+                      <label>Adulto (€)</label>
+                      <input type="number" [(ngModel)]="form.precio.adulto" step="0.1"/>
+                    </div>
+                    <div class="field">
+                      <label>Reducida (€)</label>
+                      <input type="number" [(ngModel)]="form.precio.reducido" step="0.1"/>
+                    </div>
+                    <div class="field">
+                      <label>Jubilado (€)</label>
+                      <input type="number" [(ngModel)]="form.precio.jubilado" step="0.1"/>
+                    </div>
+                  </div>
+
+                  <div class="form-botones">
+                    <button class="btn-cancelar-f" (click)="cancelarEdicion()">Cancelar</button>
+                    <button class="btn-guardar-f" (click)="guardarEdicion(s._id)" [disabled]="guardando">
+                      @if (guardando) { Guardando... } @else { Guardar }
+                    </button>
+                  </div>
+
+                </div>
+              }
+
+            </div>
+          }
+
+        </div>
+      }
+    </div>
+
+  </div>
+</ion-content>

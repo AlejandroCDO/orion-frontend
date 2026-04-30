@@ -1,0 +1,177 @@
+ion-content {
+  --background: var(--ion-color-primary);
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  color: #aaa;
+}
+
+.perfil-wrapper {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// ── AVATAR ───────────────────────────────────────
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0 8px;
+  gap: 10px;
+}
+
+.avatar-grande {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--ion-color-tertiary);
+  color: black;
+  font-weight: 800;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-email {
+  color: #aaa;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+// ── FORM CARD ────────────────────────────────────
+.form-card {
+  background: var(--ion-color-secondary);
+  border-radius: 16px;
+  padding: 4px 0;
+}
+
+.campo {
+  padding: 14px 20px;
+}
+
+.campo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.campo-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ion-color-tertiary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  ion-icon { font-size: 1rem; }
+}
+
+.campo-valor {
+  color: white;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.campo-input {
+  width: 100%;
+  background: var(--ion-color-primary);
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.95rem;
+  padding: 10px 12px;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.2s;
+
+  &::placeholder { color: #555; }
+  &:focus { border-color: var(--ion-color-tertiary); }
+}
+
+.campo-acciones {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    ion-icon { font-size: 1rem; }
+    &:disabled { opacity: 0.4; cursor: not-allowed; }
+  }
+}
+
+.btn-editar {
+  background: transparent;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+
+  ion-icon { font-size: 1.1rem; }
+  &:hover { color: var(--ion-color-tertiary); }
+}
+
+.btn-guardar-campo {
+  background: var(--ion-color-tertiary);
+  color: black;
+  flex: 1;
+}
+
+.btn-cancelar-campo {
+  background: transparent;
+  color: #aaa;
+  border: 1px solid #444 !important;
+}
+
+.campo-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 0 20px;
+}
+
+// ── ELIMINAR CUENTA ──────────────────────────────
+.btn-eliminar-cuenta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: transparent;
+  border: 1px solid #e05c5c;
+  border-radius: 12px;
+  color: #e05c5c;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 24px;
+  transition: all 0.2s;
+
+  ion-icon { font-size: 1.1rem; }
+  &:active { background: #e05c5c; color: white; }
+}

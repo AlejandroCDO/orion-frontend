@@ -1,0 +1,171 @@
+<app-header backUrl="/inicio"></app-header>
+
+<ion-content>
+  <div class="page-content">
+  <!-- INFO PRINCIPAL -->
+  <div class="info-card">
+    <img [src]="pelicula?.posterURL" [alt]="pelicula?.titulo" class="poster"/>
+    <div class="info-texto">
+      <p class="label">Nombre:</p>
+      <p class="valor">{{ pelicula?.titulo }}</p>
+      <p class="label">Género:</p>
+      <p class="valor">{{ pelicula?.genres?.join(', ') }}</p>
+      <p class="label">Año:</p>
+      <p class="valor">{{ pelicula?.year }}</p>
+      <p class="label">Director:</p>
+      <p class="valor">{{ pelicula?.director }}</p>
+      <p class="label">Duración:</p>
+      <p class="valor">{{ pelicula?.duracion }}</p>
+      <p class="label">Clasificación:</p>
+      <p class="valor edad">{{ pelicula?.clasEdad }}</p>
+      <!-- MEDIA -->
+      @if (pelicula && pelicula.totalValoraciones && pelicula.totalValoraciones > 0) {
+        <p class="label">Valoración:</p>
+        <div class="media-estrellas">
+          @for (e of estrellas; track e) {
+            <ion-icon [name]="getEstrellaIcon(e, pelicula?.mediaValoracion ?? 0)"></ion-icon>
+          }
+          <span class="media-num">{{ pelicula?.mediaValoracion }}/5</span>
+          <span class="media-total">({{ pelicula?.totalValoraciones }})</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- SINOPSIS -->
+  <div class="seccion">
+    <h3 class="seccion-titulo">Sinopsis</h3>
+    <div class="sinopsis-box">
+      <p>{{ pelicula?.sinopsis }}</p>
+    </div>
+  </div>
+
+  <!-- SELECTOR DE FECHA -->
+  <div class="seccion">
+    <ion-select
+      [(ngModel)]="fechaSeleccionada"
+      (ionChange)="onFechaChange()"
+      interface="action-sheet"
+      class="fecha-select">
+      @for (dia of diasDisponibles; track dia.valor) {
+        <ion-select-option [value]="dia.valor">{{ dia.label }}</ion-select-option>
+      }
+    </ion-select>
+  </div>
+
+  <!-- HORARIOS -->
+  <div class="seccion">
+    <h3 class="seccion-titulo">Horarios</h3>
+    @if (sesiones.length === 0) {
+      <p class="sin-sesiones">No hay sesiones para este día</p>
+    }
+    @for (sesion of sesiones; track sesion._id) {
+      <div class="sala-bloque">
+        <div class="sala-label-titulo">
+          <ion-icon name="location-outline"></ion-icon>
+          {{ sesion.sala }}
+        </div>
+        <div class="horarios">
+          @for (hora of getSplitHoras(sesion.hora); track hora) {
+            <button class="horario-btn" (click)="irAEntradas(sesion._id, hora, sesion.sala)">
+              {{ hora }}<span class="hora-h">h</span>
+            </button>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- VALORACIONES -->
+  <div class="seccion">
+    <h3 class="seccion-titulo">Valoraciones</h3>
+
+    <!-- MI VALORACIÓN -->
+    <div class="mi-valoracion-card">
+      @if (!mostrarFormValoracion) {
+        @if (miValoracion) {
+          <div class="mi-valoracion-header">
+            <p class="mi-valoracion-label">Tu valoración</p>
+            <div class="mi-valoracion-acciones">
+              <button class="btn-editar-val" (click)="abrirFormValoracion()">Editar</button>
+              <button class="btn-eliminar-val" (click)="eliminarValoracion()">
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+          <div class="estrellas-display">
+            @for (e of estrellas; track e) {
+              <ion-icon [name]="e <= miValoracion.puntuacion ? 'star' : 'star-outline'" class="estrella-filled"></ion-icon>
+            }
+          </div>
+          @if (miValoracion.comentario) {
+            <p class="mi-comentario">{{ miValoracion.comentario }}</p>
+          }
+        } @else {
+          <button class="btn-valorar" (click)="abrirFormValoracion()">
+            ¿Has visto esta película? ¡Valórala!
+          </button>
+        }
+      }
+
+      <!-- FORMULARIO -->
+      @if (mostrarFormValoracion) {
+        <p class="form-val-titulo">{{ miValoracion ? 'Editar valoración' : 'Nueva valoración' }}</p>
+
+        <div class="estrellas-input">
+          @for (e of estrellas; track e) {
+            <ion-icon
+              [name]="e <= (estrellaHover || estrellaSeleccionada) ? 'star' : 'star-outline'"
+              class="estrella-selectable"
+              (mouseenter)="estrellaHover = e"
+              (mouseleave)="estrellaHover = 0"
+              (click)="estrellaSeleccionada = e">
+            </ion-icon>
+          }
+        </div>
+
+        <textarea
+          [(ngModel)]="comentario"
+          placeholder="Escribe tu opinión (opcional)"
+          class="comentario-input"
+          rows="3">
+        </textarea>
+
+        <div class="form-val-botones">
+          <button class="btn-cancelar-val" (click)="mostrarFormValoracion = false">Cancelar</button>
+          <button class="btn-guardar-val" (click)="guardarValoracion()"
+                  [disabled]="!estrellaSeleccionada || guardandoValoracion">
+            @if (guardandoValoracion) { Guardando... } @else { Guardar }
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- LISTA DE RESEÑAS -->
+    @if (valoraciones.length === 0) {
+      <p class="sin-sesiones">Aún no hay valoraciones</p>
+    }
+
+    @for (v of valoraciones; track v._id) {
+      <div class="resena-card">
+        <div class="resena-header">
+          <div class="resena-avatar">{{ getNombreUsuario(v).charAt(0).toUpperCase() }}</div>
+          <div class="resena-info">
+            <p class="resena-nombre">{{ getNombreUsuario(v) }}</p>
+            <div class="estrellas-display small">
+              @for (e of estrellas; track e) {
+                <ion-icon [name]="e <= v.puntuacion ? 'star' : 'star-outline'"></ion-icon>
+              }
+            </div>
+          </div>
+          <p class="resena-fecha">{{ v.createdAt | date: 'd/M/yy' }}</p>
+        </div>
+        @if (v.comentario) {
+          <p class="resena-comentario">{{ v.comentario }}</p>
+        }
+      </div>
+    }
+  </div>
+  </div>
+
+</ion-content>

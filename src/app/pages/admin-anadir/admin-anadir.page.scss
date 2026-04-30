@@ -1,0 +1,156 @@
+ion-content {
+  --background: var(--ion-color-primary);
+}
+
+.form-wrapper {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// ── POSTER PREVIEW ───────────────────────────────
+.poster-preview {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .poster-img {
+    width: 140px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  }
+
+  .poster-placeholder {
+    width: 140px;
+    height: 200px;
+    background: var(--ion-color-secondary);
+    border-radius: 10px;
+    border: 2px dashed #444;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #666;
+
+    ion-icon { font-size: 2.5rem; }
+    p { font-size: 0.75rem; text-align: center; margin: 0; }
+  }
+}
+
+// ── FORM CARD ────────────────────────────────────
+.form-card {
+  background: var(--ion-color-secondary);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    color: var(--ion-color-tertiary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    .hint {
+      color: #666;
+      font-size: 0.7rem;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+    }
+  }
+
+  input, textarea {
+    background: var(--ion-color-primary);
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    padding: 10px 12px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.2s;
+
+    &::placeholder { color: #555; }
+    &:focus { border-color: var(--ion-color-tertiary); }
+  }
+
+  textarea { resize: none; line-height: 1.5; }
+}
+
+.row-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+// ── CLASIFICACIÓN EDAD ───────────────────────────
+.edad-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  .edad-btn {
+    background: var(--ion-color-primary);
+    color: white;
+    border: 2px solid #444;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &.selected {
+      background: var(--ion-color-tertiary);
+      border-color: var(--ion-color-tertiary);
+      color: black;
+    }
+  }
+}
+
+// ── BOTONES ──────────────────────────────────────
+.btn-group {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+  padding-bottom: 24px;
+
+  button {
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:active { opacity: 0.8; }
+    &:disabled { opacity: 0.4; cursor: not-allowed; }
+  }
+
+  .btn-cancelar {
+    background: transparent;
+    color: #aaa;
+    border: 1px solid #444;
+  }
+
+  .btn-confirmar {
+    background: var(--ion-color-tertiary);
+    color: black;
+  }
+}

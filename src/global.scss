@@ -35,3 +35,31 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+// ── ALERT STYLING ────────────────────────────────
+.alert-wrapper {
+  background: var(--ion-color-secondary) !important;
+  border-radius: 16px !important;
+}
+
+.alert-title {
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+.alert-message {
+  color: #aaa !important;
+}
+
+.alert-button {
+  color: var(--ion-color-tertiary) !important;
+  font-weight: 600 !important;
+
+  &.alert-button-role-destructive {
+    color: #e05c5c !important;
+  }
+
+  &.alert-button-role-cancel {
+    color: #aaa !important;
+  }
+}

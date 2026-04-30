@@ -1,0 +1,119 @@
+<app-header backUrl="/admin-inicio"></app-header>
+
+<ion-content>
+  <div class="form-wrapper">
+
+    <!-- BUSCADOR PELÍCULA -->
+    <div class="form-card">
+      <h3 class="card-titulo">Película</h3>
+
+      @if (!peliculaSeleccionada) {
+        <div class="field">
+          <label>Buscar película *</label>
+          <input
+            type="text"
+            [(ngModel)]="busqueda"
+            placeholder="Escribe el título..."
+            (ngModelChange)="filtrarPeliculas()"/>
+        </div>
+
+        @if (peliculasFiltradas.length > 0) {
+          <div class="resultados-lista">
+            @for (p of peliculasFiltradas; track p._id) {
+              <div class="resultado-item" (click)="seleccionarPelicula(p)">
+                <img [src]="p.posterURL" [alt]="p.titulo" class="mini-poster"/>
+                <div class="resultado-info">
+                  <p class="resultado-titulo">{{ p.titulo }}</p>
+                  <p class="resultado-sub">{{ p.year }} · {{ p.director }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        }
+
+        @if (busqueda.length > 0 && peliculasFiltradas.length === 0) {
+          <p class="sin-resultados">No se encontraron películas</p>
+        }
+
+      } @else {
+        <!-- PELÍCULA SELECCIONADA -->
+        <div class="pelicula-elegida">
+          <img [src]="peliculaSeleccionada.posterURL" class="mini-poster"/>
+          <div class="resultado-info">
+            <p class="resultado-titulo">{{ peliculaSeleccionada.titulo }}</p>
+            <p class="resultado-sub">{{ peliculaSeleccionada.year }} · {{ peliculaSeleccionada.director }}</p>
+          </div>
+          <button class="btn-cambiar" (click)="cambiarPelicula()">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- DATOS DE LA SESIÓN -->
+    <div class="form-card">
+      <h3 class="card-titulo">Datos de la sesión</h3>
+
+      <div class="field">
+        <label>Sala *</label>
+        <input type="text" [(ngModel)]="form.sala" placeholder="Ej: Sala 1"/>
+      </div>
+
+      <div class="field">
+        <label>Fecha *</label>
+        <input type="date" [(ngModel)]="form.fecha" [min]="hoy"/>
+      </div>
+
+      <div class="field">
+        <label>Horarios * <span class="hint">(añade uno a uno)</span></label>
+        <div class="horario-input-row">
+          <input type="time" [(ngModel)]="horaInput"/>
+          <button class="btn-add-hora" (click)="addHora()">
+            <ion-icon name="add-outline"></ion-icon>
+          </button>
+        </div>
+        @if (form.hora.length > 0) {
+          <div class="horas-chips">
+            @for (hora of form.hora; track hora) {
+              <span class="hora-chip">
+                {{ hora }}
+                <button (click)="removeHora(hora)">
+                  <ion-icon name="close-outline"></ion-icon>
+                </button>
+              </span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- PRECIOS -->
+    <div class="form-card">
+      <h3 class="card-titulo">Precios</h3>
+
+      <div class="row-fields">
+        <div class="field">
+          <label>Adulto (€)</label>
+          <input type="number" [(ngModel)]="form.precio.adulto" step="0.1"/>
+        </div>
+        <div class="field">
+          <label>Reducida (€)</label>
+          <input type="number" [(ngModel)]="form.precio.reducido" step="0.1"/>
+        </div>
+        <div class="field">
+          <label>Jubilado (€)</label>
+          <input type="number" [(ngModel)]="form.precio.jubilado" step="0.1"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTONES -->
+    <div class="btn-group">
+      <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+      <button class="btn-confirmar" (click)="guardar()" [disabled]="guardando">
+        @if (guardando) { Guardando... } @else { Añadir sesión }
+      </button>
+    </div>
+
+  </div>
+</ion-content>

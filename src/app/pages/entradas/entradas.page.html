@@ -1,0 +1,58 @@
+<app-header backUrl="/inicio"></app-header>
+
+<ion-content>
+
+  <!-- INFO PELÍCULA -->
+  <div class="info-card" *ngIf="sesion?.movieId as movie">
+    <img [src]="movie.posterURL" class="poster"/>
+
+    <div class="info-texto">
+      <p class="label">Nombre:</p>
+      <p class="valor">{{ movie.titulo }}</p>
+
+      <p class="label">Hora:</p>
+      <div class="hora-badge">{{ horaSeleccionada }}</div>
+
+      <p class="label">Fecha:</p>
+      <p class="valor">{{ fechaFormateada }}</p>
+
+      <p class="label">Sala:</p>
+      <p class="valor">{{ sala }}</p>
+    </div>
+  </div>
+
+  <!-- ENTRADAS -->
+  <div class="entradas-section">
+    <h3 class="section-title">Entradas</h3>
+
+    <div class="entrada-row" *ngFor="let entrada of tiposEntrada">
+      <div class="entrada-info">
+        <p class="entrada-nombre">{{ entrada.nombre }}</p>
+        <p class="entrada-precio">{{ entrada.precio.toFixed(2) }}€</p>
+      </div>
+      <div class="entrada-contador">
+        <button class="btn-contador" (click)="decrementar(entrada)" [disabled]="entrada.cantidad === 0">
+          <ion-icon name="remove-outline"></ion-icon>
+        </button>
+        <span class="cantidad">{{ entrada.cantidad }}</span>
+        <button class="btn-contador" (click)="incrementar(entrada)" [disabled]="totalEntradas >= 10">
+          <ion-icon name="add-outline"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTAL -->
+  <div class="total-row">
+    <span class="total-label">Total (IVA incluido):</span>
+    <span class="total-precio">{{ totalPrecio.toFixed(2) }}€</span>
+  </div>
+
+</ion-content>
+
+<!-- BOTÓN FIJO ABAJO -->
+<ion-footer class="footer">
+  <button class="btn-siguiente" (click)="siguiente()" [disabled]="totalEntradas === 0">
+    Siguiente
+  </button>
+</ion-footer>

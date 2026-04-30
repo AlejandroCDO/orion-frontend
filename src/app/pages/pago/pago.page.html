@@ -1,0 +1,71 @@
+<app-header backUrl="/inicio"></app-header>
+
+<ion-content>
+
+  <!-- INFO PELÍCULA -->
+  <div class="info-card" *ngIf="movieTitulo">
+    <img [src]="moviePoster" class="poster"/>
+    <div class="info-texto">
+      <p class="label">Película:</p>
+      <p class="valor">{{ movieTitulo }}</p>
+      <p class="label">Hora:</p>
+      <div class="hora-badge">{{ hora }}</div>
+      <p class="label">Fecha:</p>
+      <p class="valor">{{ fecha }}</p>
+      <p class="label">Sala:</p>
+      <p class="valor">{{ sala }}</p>
+    </div>
+  </div>
+
+  <!-- RESUMEN ENTRADAS -->
+  <div class="seccion-card">
+    <h3 class="card-titulo">Resumen</h3>
+
+    @for (entrada of entradas; track entrada.nombre) {
+      <div class="resumen-row">
+        <span class="resumen-nombre">{{ entrada.nombre }} x{{ entrada.cantidad }}</span>
+        <span class="resumen-precio">{{ (entrada.precio * entrada.cantidad).toFixed(2) }}€</span>
+      </div>
+    }
+
+    <div class="separador"></div>
+
+    <!-- ASIENTOS -->
+    <div class="asientos-row">
+      <span class="resumen-nombre">Asientos</span>
+      <span class="asientos-chips">
+        @for (asiento of asientos; track asiento) {
+          <span class="chip">{{ asiento }}</span>
+        }
+      </span>
+    </div>
+
+    <div class="separador"></div>
+
+    <!-- TOTAL -->
+    <div class="total-row">
+      <span class="total-label">Total (IVA incluido)</span>
+      <span class="total-precio">{{ total }}€</span>
+    </div>
+  </div>
+
+  <!-- MÉTODOO DE PAGO (visual, no funcional) -->
+  <div class="seccion-card">
+    <h3 class="card-titulo">Método de pago</h3>
+    <div class="metodo-pago">
+      <ion-icon name="card-outline"></ion-icon>
+      <span>Tarjeta de crédito / débito</span>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="footer">
+  <button class="btn-confirmar" (click)="confirmarPago()" [disabled]="pagando">
+    @if (pagando) {
+      Procesando...
+    } @else {
+      Confirmar pago · {{ total }}€
+    }
+  </button>
+</ion-footer>

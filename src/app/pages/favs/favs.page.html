@@ -1,0 +1,31 @@
+<app-header backUrl="/inicio"></app-header>
+<ion-content>
+
+  @if (cargando) {
+    <div class="empty-state">
+      <ion-icon name="film-outline"></ion-icon>
+      <p>Cargando favoritos...</p>
+    </div>
+  }
+
+  @if (!cargando && favs.length === 0) {
+    <div class="empty-state">
+      <ion-icon name="heart-outline"></ion-icon>
+      <h3>Sin favoritos</h3>
+      <p>Añade películas a tus favoritos desde la cartelera</p>
+    </div>
+  }
+
+  @if (!cargando && favs.length > 0) {
+    <div class="grid">
+      @for (pelicula of favs; track pelicula._id) {
+        <div class="pelicula-card" (click)="verDetalle(pelicula._id)">
+          <img [src]="pelicula.posterURL" [alt]="pelicula.titulo" class="poster"/>
+          <p class="titulo">{{ pelicula.titulo }}</p>
+          <p class="sub">{{ pelicula.year }} · {{ pelicula.director }}</p>
+        </div>
+      }
+    </div>
+  }
+
+</ion-content>

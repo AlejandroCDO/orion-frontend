@@ -1,0 +1,75 @@
+<app-header backUrl="/inicio"></app-header>
+
+<ion-content>
+
+  <!-- INFO PELÍCULA -->
+  <div class="info-card" *ngIf="sesion?.movieId as movie">
+    <img [src]="movie.posterURL" class="poster"/>
+    <div class="info-texto">
+      <p class="label">Nombre:</p>
+      <p class="valor">{{ movie.titulo }}</p>
+      <p class="label">Hora:</p>
+      <div class="hora-badge">{{ horaSeleccionada }}</div>
+      <p class="label">Fecha:</p>
+      <p class="valor">{{ fechaFormateada }}</p>
+      <p class="label">Sala:</p>
+      <p class="valor">{{ sala }}</p>
+    </div>
+  </div>
+
+  <!-- LEYENDA -->
+  <div class="leyenda">
+    <span class="leyenda-item">
+      <span class="cuadro ocupado"></span> Ocupado
+    </span>
+    <span class="leyenda-item">
+      <span class="cuadro vacio"></span> Vacío
+    </span>
+    <span class="leyenda-item">
+      <span class="cuadro seleccionado"></span> Seleccionado
+    </span>
+  </div>
+
+  <!-- PANTALLA -->
+  <div class="pantalla-wrapper">
+    <div class="pantalla">Pantalla</div>
+  </div>
+
+  <!-- GRID ASIENTOS -->
+  <div class="asientos-wrapper">
+    <div class="grid-asientos">
+      @for (fila of asientos; track $index; let fi = $index) {
+        <div class="fila">
+          <span class="fila-label">{{ getLetraFila(fi) }}</span>
+          @for (asiento of fila; track $index; let ci = $index) {
+            <button
+              class="asiento"
+              [class.ocupado]="asiento === true"
+              [class.seleccionado]="isSeleccionado(fi, ci)"
+              [disabled]="asiento === true"
+              (click)="toggleAsiento(fi, ci)">
+            </button>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- RESUMEN -->
+  <div class="resumen">
+    <span class="resumen-texto">
+      {{ asientosSeleccionados.length }} / {{ totalEntradas }} asientos seleccionados
+    </span>
+  </div>
+
+</ion-content>
+
+<!-- BOTÓN PAGAR -->
+<ion-footer class="footer">
+  <button
+    class="btn-pagar"
+    (click)="irAPago()"
+    [disabled]="asientosSeleccionados.length !== totalEntradas">
+    Pagar
+  </button>
+</ion-footer>

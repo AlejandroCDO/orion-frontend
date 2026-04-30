@@ -1,0 +1,240 @@
+ion-content {
+  --background: var(--ion-color-primary);
+}
+
+.page-wrapper {
+  padding-bottom: 40px;
+}
+
+.buscador {
+  --background: var(--ion-color-secondary);
+  --color: white;
+  --placeholder-color: #aaa;
+  --icon-color: var(--ion-color-tertiary);
+  --border-radius: 10px;
+  padding: 12px 12px 4px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  color: #aaa;
+  gap: 12px;
+  ion-icon { font-size: 3rem; }
+}
+
+.lista {
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+// ── CARD USUARIO ─────────────────────────────────
+.usuario-card {
+  background: var(--ion-color-secondary);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.usuario-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:active { background: rgba(255,255,255,0.04); }
+}
+
+.usuario-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--ion-color-tertiary);
+  color: black;
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.usuario-info {
+  flex: 1;
+  min-width: 0;
+
+  .usuario-nombre {
+    color: white;
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin: 0 0 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .usuario-email {
+    color: #888;
+    font-size: 0.78rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.usuario-acciones {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  .chevron {
+    color: #666;
+    font-size: 1.1rem;
+  }
+}
+
+.btn-eliminar-u {
+  background: transparent;
+  border: none;
+  color: #e05c5c;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  ion-icon { font-size: 1.2rem; }
+}
+
+// ── DETALLE ──────────────────────────────────────
+.usuario-detalle {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detalle-seccion {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .detalle-label {
+    color: var(--ion-color-tertiary);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 0;
+  }
+}
+
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ccc;
+  font-size: 0.85rem;
+
+  ion-icon {
+    color: var(--ion-color-tertiary);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+}
+
+.sin-data {
+  color: #666;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+// ── RESEÑAS ──────────────────────────────────────
+.resena-item {
+  background: var(--ion-color-primary);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.resena-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.resena-pelicula {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+
+  .mini-poster {
+    width: 32px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .resena-titulo {
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.resena-item-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.estrellas-small {
+  display: flex;
+  gap: 2px;
+  ion-icon {
+    color: var(--ion-color-tertiary);
+    font-size: 0.85rem;
+  }
+}
+
+.btn-eliminar-resena {
+  background: transparent;
+  border: none;
+  color: #e05c5c;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  ion-icon { font-size: 1rem; }
+}
+
+.resena-comentario {
+  color: #aaa;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  margin: 0;
+}

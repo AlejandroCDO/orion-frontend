@@ -1,0 +1,82 @@
+<app-header backUrl="/admin-inicio"></app-header>
+
+<ion-content>
+  <div class="form-wrapper">
+
+    <!-- POSTER PREVIEW -->
+    <div class="poster-preview">
+      @if (posterURL) {
+        <img [src]="posterURL" alt="poster" class="poster-img"/>
+      } @else {
+        <div class="poster-placeholder">
+          <ion-icon name="image-outline"></ion-icon>
+          <p>Vista previa del póster</p>
+        </div>
+      }
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="form-card">
+
+      <div class="field">
+        <label>Título *</label>
+        <input type="text" [(ngModel)]="form.titulo" placeholder="Nombre de la película"/>
+      </div>
+
+      <div class="field">
+        <label>Sinopsis *</label>
+        <textarea [(ngModel)]="form.sinopsis" placeholder="Descripción de la película" rows="4"></textarea>
+      </div>
+
+      <div class="field">
+        <label>URL del póster *</label>
+        <input type="text" [(ngModel)]="form.posterURL" placeholder="https://..." (ngModelChange)="onPosterChange()"/>
+      </div>
+
+      <div class="row-fields">
+        <div class="field">
+          <label>Año *</label>
+          <input type="number" [(ngModel)]="form.year" placeholder="2024"/>
+        </div>
+        <div class="field">
+          <label>Duración *</label>
+          <input type="text" [(ngModel)]="form.duracion" placeholder="120 min"/>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Director *</label>
+        <input type="text" [(ngModel)]="form.director" placeholder="Nombre del director"/>
+      </div>
+
+      <div class="field">
+        <label>Géneros * <span class="hint">(separados por coma)</span></label>
+        <input type="text" [(ngModel)]="generosTexto" placeholder="Acción, Drama, Thriller"/>
+      </div>
+
+      <div class="field">
+        <label>Clasificación por edad *</label>
+        <div class="edad-options">
+          @for (edad of edades; track edad) {
+            <button
+              class="edad-btn"
+              [class.selected]="form.clasEdad === edad"
+              (click)="form.clasEdad = edad">
+              {{ edad }}
+            </button>
+          }
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTONES -->
+    <div class="btn-group">
+      <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+      <button class="btn-confirmar" (click)="guardar()" [disabled]="guardando">
+        @if (guardando) { Guardando... } @else { Añadir película }
+      </button>
+    </div>
+
+  </div>
+</ion-content>

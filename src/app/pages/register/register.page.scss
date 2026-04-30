@@ -1,0 +1,216 @@
+ion-content {
+  --background: var(--ion-color-primary);
+}
+
+ion-header ion-toolbar {
+  --background: var(--ion-color-primary);
+  ion-back-button { --color: var(--ion-color-tertiary); }
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 24px;
+}
+
+.logo {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+}
+
+// ── STEPPER ──────────────────────────────────────
+.stepper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  .step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #444;
+    background: var(--ion-color-primary);
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+
+    ion-icon { font-size: 1rem; }
+  }
+
+  .step-label {
+    color: #666;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+    transition: color 0.3s;
+  }
+
+  &.active {
+    .step-circle {
+      border-color: var(--ion-color-tertiary);
+      color: var(--ion-color-tertiary);
+    }
+    .step-label { color: var(--ion-color-tertiary); }
+  }
+
+  &.done {
+    .step-circle {
+      background: var(--ion-color-tertiary);
+      border-color: var(--ion-color-tertiary);
+      color: black;
+    }
+    .step-label { color: var(--ion-color-tertiary); }
+  }
+}
+
+.step-line {
+  width: 60px;
+  height: 2px;
+  background: #444;
+  margin-bottom: 20px;
+  transition: background 0.3s;
+
+  &.done { background: var(--ion-color-tertiary); }
+}
+
+// ── CARD ─────────────────────────────────────────
+.card {
+  background: var(--ion-color-secondary);
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.card-title {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 2px solid var(--ion-color-tertiary);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  color: #aaa;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+// ── FIELDS ───────────────────────────────────────
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+
+  label {
+    color: var(--ion-color-tertiary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  input {
+    background: var(--ion-color-primary);
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    padding: 10px 12px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.2s;
+
+    &::placeholder { color: #555; }
+    &:focus { border-color: var(--ion-color-tertiary); }
+  }
+}
+
+// ── BOTONES ──────────────────────────────────────
+.btn-siguiente {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: var(--ion-color-tertiary);
+  color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.2s;
+
+  ion-icon { font-size: 1.1rem; }
+  &:active { opacity: 0.8; }
+}
+
+.btn-group {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.btn-atras {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  color: #aaa;
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  ion-icon { font-size: 1rem; }
+  &:active { opacity: 0.8; }
+}
+
+.btn-registrar {
+  background: var(--ion-color-tertiary);
+  color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:active { opacity: 0.8; }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+}
