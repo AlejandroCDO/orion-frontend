@@ -34,13 +34,11 @@ export class AppComponent {
       heartOutline, bookmarkOutline, personOutline,
       peopleOutline, calendarOutline, chatbubbleOutline  });
 
-    // Suscripción al email
     this.sessionService.email$.subscribe(email => {
       this.userEmail = email;
       this.userInitial = email ? email.charAt(0).toUpperCase() : '';
     });
 
-    // Suscripción al role
     this.sessionService.role$.subscribe(role => {
       this.role = role;
     });

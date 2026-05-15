@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {
   IonContent, IonHeader, IonTitle, IonToolbar,
-  IonButtons, IonMenuButton, IonSearchbar, IonIcon
+  IonButtons, IonMenuButton, IonSearchbar, IonIcon, IonRefresher, IonRefresherContent
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { heartOutline, heart, bookmarkOutline, bookmark, filmOutline } from 'ionicons/icons';
@@ -21,7 +21,7 @@ import {SessionService} from "../../services/session.service";
     CommonModule,
     IonContent, IonHeader, IonTitle, IonToolbar,
     IonButtons, IonMenuButton, IonSearchbar, IonIcon,
-    FiltroPipe,
+    FiltroPipe, IonRefresher, IonRefresherContent,
   ],
 })
 export class InicioPage implements OnInit, OnDestroy {
@@ -58,11 +58,18 @@ export class InicioPage implements OnInit, OnDestroy {
     this.startBannerAuto();
   }
 
+  ionViewWillEnter() {
+    this.loadPeliculas();
+    this.loadFavsYWatchlist();
+  }
+
   ngOnDestroy() {
     clearInterval(this.bannerInterval);
   }
 
   private loadFavsYWatchlist() {
+    this.favs = new Set();
+    this.watchlist = new Set();
     const userId = localStorage.getItem('userId');
     if (!userId) return;
 
@@ -128,7 +135,22 @@ export class InicioPage implements OnInit, OnDestroy {
     }, 4000);
   }
 
+  recargar(event: any) {
+    this.loadPeliculas();
+    setTimeout(() => event.target.complete(), 1000);
+  }
+
   irAPerfil() {
     this.router.navigate(['/perfil']);
+  }
+
+  readonly yearActual = new Date().getFullYear();
+
+  get estrenos(): Pelicula[] {
+    return this.peliculaList.filter(p => p.year === this.yearActual);
+  }
+
+  get reestrenos(): Pelicula[] {
+    return this.peliculaList.filter(p => p.year < this.yearActual);
   }
 }

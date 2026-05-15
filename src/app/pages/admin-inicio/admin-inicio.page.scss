@@ -1,25 +1,41 @@
-ion-header ion-toolbar {
-  --background: var(--ion-color-secondary);
-  --color: white;
+ion-header {
+  background: var(--ion-color-secondary);
 
-  ion-title {
-    font-weight: 900;
-    letter-spacing: 3px;
-    color: white;
+  &::after {
+    display: none;
   }
 
-  ion-menu-button {
+  ion-toolbar {
+    --background: var(--ion-color-secondary);
     --color: white;
-  }
-}
+    --border-width: 0;
 
-ion-searchbar {
-  --background: var(--ion-color-primary);
-  --color: white;
-  --placeholder-color: #aaa;
-  --icon-color: var(--ion-color-tertiary);
-  --border-radius: 10px;
-  padding: 8px 12px;
+    ion-title {
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: white;
+    }
+
+    ion-menu-button {
+      --color: white;
+    }
+  }
+  .avatar-admin {
+    border: 3px solid var(--ion-color-tertiary-shade);
+    box-shadow: 0 0 8px var(--ion-color-tertiary), 0 0 10px rgba(255, 191, 0, 0.4);
+  }
+
+  ion-searchbar {
+    --background: var(--ion-color-primary);
+    --color: white;
+    --placeholder-color: #aaa;
+    --icon-color: var(--ion-color-tertiary);
+    --border-radius: 10px;
+    --box-shadow: none;
+    padding: 8px 12px;
+    background: var(--ion-color-secondary);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
 }
 
 .avatar {
@@ -45,7 +61,7 @@ ion-searchbar {
 
 .banner-slider {
   display: flex;
-  overflow: hidden; // ← hidden para que no se vean los otros slides
+  overflow: hidden;
   width: 100%;
 
   .banner-slide {
@@ -54,9 +70,9 @@ ion-searchbar {
 
     img {
       width: 100%;
-      height: auto;        // ← altura automática según la imagen
-      display: block;      // ← elimina espacio inferior
-      object-fit: cover;   // ← vuelve a cover
+      height: auto;
+      display: block;
+      object-fit: cover;
     }
   }
 }
@@ -192,4 +208,19 @@ ion-searchbar {
   border-radius: 8px;
   margin-right: 8px;
   pointer-events: none;
+}
+
+.seccion-titulo {
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 16px 12px 8px;
+  margin: 0;
+  background: var(--ion-color-primary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: var(--ion-color-tertiary);
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
 }

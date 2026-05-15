@@ -95,3 +95,17 @@ ion-content {
     color: var(--ion-color-tertiary);
   }
 }
+.input-error {
+  --background: rgba(197, 0, 15, 0.15) !important;
+  border: 1px solid var(--ion-color-danger) !important;
+  border-radius: 8px;
+}
+
+.eye-icon {
+  color: #aaa;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 22px;
+
+  &:hover { color: white; }
+}

@@ -6,37 +6,56 @@
     <div class="card">
       <h2 class="card-title">Iniciar Sesión</h2>
 
-      <ion-item lines="none" class="input-item">
+      <!-- EMAIL -->
+      <ion-item lines="none" class="input-item" [class.input-error]="errores.email">
         <ion-label position="stacked">Correo electrónico*</ion-label>
         <ion-input
           type="email"
           placeholder="Introduce el correo electrónico"
-          [(ngModel)]="email">
+          [(ngModel)]="email"
+          (ngModelChange)="errores.email = false">
         </ion-input>
       </ion-item>
 
-      <ion-item lines="none" class="input-item">
+      <!-- CONTRASEÑA -->
+      <ion-item lines="none" class="input-item" [class.input-error]="errores.password">
         <ion-label position="stacked">Contraseña*</ion-label>
         <ion-input
-          type="password"
+          [type]="verPassword ? 'text' : 'password'"
           placeholder="Introduce la contraseña"
-          [(ngModel)]="password">
+          [(ngModel)]="password"
+          (ngModelChange)="errores.password = false">
         </ion-input>
+        <ion-icon
+          slot="end"
+          [name]="verPassword ? 'eye-off-outline' : 'eye-outline'"
+          class="eye-icon"
+          (click)="verPassword = !verPassword">
+        </ion-icon>
       </ion-item>
 
+      <!-- CHECKBOX ADMIN -->
       <ion-item lines="none" class="checkbox-item">
         <ion-checkbox [(ngModel)]="isAdmin" slot="start"></ion-checkbox>
         <ion-label>¿Eres propietario de un cine?</ion-label>
       </ion-item>
 
+      <!-- CÓDIGO DE ACCESO -->
       @if (isAdmin) {
-        <ion-item lines="none" class="input-item">
+        <ion-item lines="none" class="input-item" [class.input-error]="errores.accessCode">
           <ion-label position="stacked">Código de acceso*</ion-label>
           <ion-input
-            type="text"
+            [type]="verCodigo ? 'text' : 'password'"
             placeholder="Introduce el código de acceso"
-            [(ngModel)]="accessCode">
+            [(ngModel)]="accessCode"
+            (ngModelChange)="errores.accessCode = false">
           </ion-input>
+          <ion-icon
+            slot="end"
+            [name]="verCodigo ? 'eye-off-outline' : 'eye-outline'"
+            class="eye-icon"
+            (click)="verCodigo = !verCodigo">
+          </ion-icon>
         </ion-item>
       }
 

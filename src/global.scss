@@ -63,3 +63,10 @@
     color: #aaa !important;
   }
 }
+
+.custom-toast {
+  --start: 10px;
+  --end: 10px;
+  bottom: 20px !important;
+  z-index: 99999 !important;
+}

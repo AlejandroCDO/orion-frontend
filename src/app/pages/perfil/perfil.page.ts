@@ -32,10 +32,8 @@ export class PerfilPage implements OnInit {
     email: '',
   };
 
-  // Copia original para cancelar edición
   perfilOriginal = { ...this.perfil };
 
-  // Qué campo está en edición ahora mismo
   editando: string | null = null;
 
   constructor() {

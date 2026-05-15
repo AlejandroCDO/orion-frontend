@@ -18,7 +18,6 @@ export class DataService {
   private readonly sessionService = inject(SessionService);
 
   // ─── HELPERS ───────────────────────────────────────────
-  // Genera el header con el token JWT para rutas protegidas
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({ Authorization: `Bearer ${token}` });

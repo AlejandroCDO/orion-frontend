@@ -15,7 +15,14 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="recargar($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-outline"
+      pullingText="Tira para recargar"
+      refreshingSpinner="crescent"
+      refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
   <!-- BANNER -->
   <div class="banner-wrapper">
     <div class="banner-slider" #slider>
@@ -32,23 +39,47 @@
     </div>
   </div>
 
-  <!-- GRID DE PELÍCULAS -->
-  <div class="grid">
-    @for (pelicula of peliculaList | filtro: textoBuscar: 'titulo'; track pelicula._id) {
-      <div class="pelicula-card" (click)="verDetalle(pelicula._id)">
-        <img [src]="pelicula.posterURL" [alt]="pelicula.titulo" class="poster"/>
-        <p class="titulo">{{ pelicula.titulo }}</p>
-        <div class="card-actions">
-          <button class="action-btn" (click)="toggleFav(pelicula._id); $event.stopPropagation()">
-            <ion-icon [name]="favs.has(pelicula._id) ? 'heart' : 'heart-outline'"></ion-icon>
-          </button>
-          <button class="action-btn" (click)="toggleWatchlist(pelicula._id); $event.stopPropagation()">
-            <ion-icon [name]="watchlist.has(pelicula._id) ? 'bookmark' : 'bookmark-outline'"></ion-icon>
-          </button>
+  <!-- ESTRENOS -->
+  @if ((estrenos | filtro: textoBuscar: 'titulo').length > 0) {
+    <h2 class="seccion-titulo">Estrenos</h2>
+    <div class="grid">
+      @for (pelicula of estrenos | filtro: textoBuscar: 'titulo'; track pelicula._id) {
+        <div class="pelicula-card" (click)="verDetalle(pelicula._id)">
+          <img [src]="pelicula.posterURL" [alt]="pelicula.titulo" class="poster"/>
+          <p class="titulo">{{ pelicula.titulo }}</p>
+          <div class="card-actions">
+            <button class="action-btn" (click)="toggleFav(pelicula._id); $event.stopPropagation()">
+              <ion-icon [name]="favs.has(pelicula._id) ? 'heart' : 'heart-outline'"></ion-icon>
+            </button>
+            <button class="action-btn" (click)="toggleWatchlist(pelicula._id); $event.stopPropagation()">
+              <ion-icon [name]="watchlist.has(pelicula._id) ? 'bookmark' : 'bookmark-outline'"></ion-icon>
+            </button>
+          </div>
         </div>
-      </div>
-    }
-  </div>
+      }
+    </div>
+  }
+
+  <!-- REESTRENOS -->
+  @if ((reestrenos | filtro: textoBuscar: 'titulo').length > 0) {
+    <h2 class="seccion-titulo">Reestrenos</h2>
+    <div class="grid">
+      @for (pelicula of reestrenos | filtro: textoBuscar: 'titulo'; track pelicula._id) {
+        <div class="pelicula-card" (click)="verDetalle(pelicula._id)">
+          <img [src]="pelicula.posterURL" [alt]="pelicula.titulo" class="poster"/>
+          <p class="titulo">{{ pelicula.titulo }}</p>
+          <div class="card-actions">
+            <button class="action-btn" (click)="toggleFav(pelicula._id); $event.stopPropagation()">
+              <ion-icon [name]="favs.has(pelicula._id) ? 'heart' : 'heart-outline'"></ion-icon>
+            </button>
+            <button class="action-btn" (click)="toggleWatchlist(pelicula._id); $event.stopPropagation()">
+              <ion-icon [name]="watchlist.has(pelicula._id) ? 'bookmark' : 'bookmark-outline'"></ion-icon>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
 
   @if ((peliculaList | filtro: textoBuscar: 'titulo').length === 0) {
     <div class="no-results">

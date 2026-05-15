@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { IonContent, IonIcon } from '@ionic/angular/standalone';
+import {IonContent, IonIcon, IonRefresher, IonRefresherContent} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { bookmarkOutline, filmOutline } from 'ionicons/icons';
 import { DataService } from '../../services/data-service';
@@ -12,7 +12,7 @@ import { HeaderComponent } from '../../components/header/header.component';
   templateUrl: './watchlist.page.html',
   styleUrls: ['./watchlist.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonContent, IonIcon, HeaderComponent],
+  imports: [CommonModule, IonContent, IonIcon, HeaderComponent, IonRefresher, IonRefresherContent],
 })
 export class WatchlistPage implements OnInit {
   private readonly dataService = inject(DataService);
@@ -26,6 +26,9 @@ export class WatchlistPage implements OnInit {
   }
 
   ngOnInit() {
+    this.cargarWatchlist();
+  }
+  ionViewWillEnter() {
     this.cargarWatchlist();
   }
 
@@ -43,6 +46,11 @@ export class WatchlistPage implements OnInit {
         this.cargando = false;
       }
     });
+  }
+
+  recargar(event: any) {
+    this.cargarWatchlist();
+    setTimeout(() => event.target.complete(), 1000);
   }
 
   verDetalle(id: string) {

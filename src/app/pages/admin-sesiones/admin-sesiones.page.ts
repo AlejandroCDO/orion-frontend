@@ -1,7 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonIcon, IonSearchbar, AlertController } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonIcon,
+  IonSearchbar,
+  AlertController,
+  IonRefresher,
+  IonRefresherContent
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { calendarOutline, locationOutline, timeOutline,
   createOutline, trashOutline, filmOutline,
@@ -18,7 +25,7 @@ import { HeaderComponent } from '../../components/header/header.component';
   styleUrls: ['./admin-sesiones.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, IonContent, IonIcon,
-    IonSearchbar, FiltroPipe, HeaderComponent],
+    IonSearchbar, FiltroPipe, HeaderComponent, IonRefresher, IonRefresherContent],
 })
 export class AdminSesionesPage implements OnInit {
   private readonly dataService = inject(DataService);
@@ -30,7 +37,6 @@ export class AdminSesionesPage implements OnInit {
   sesionExpandida: string | null = null;
   cargando = true;
 
-  // Formulario edición
   editando: string | null = null;
   form: any = {};
   horaInput: string = '';
@@ -46,7 +52,9 @@ export class AdminSesionesPage implements OnInit {
   ngOnInit() {
     this.cargarSesiones();
   }
-
+  ionViewWillEnter() {
+    this.cargarSesiones();
+  }
   private cargarSesiones() {
     this.cargando = true;
     this.dataService.getAllSesiones().subscribe({
@@ -78,6 +86,10 @@ export class AdminSesionesPage implements OnInit {
       hora: [...sesion.hora],
       precio: { ...sesion.precio },
     };
+  }
+  recargar(event: any) {
+    this.cargarSesiones();
+    setTimeout(() => event.target.complete(), 1000);
   }
 
   cancelarEdicion() {

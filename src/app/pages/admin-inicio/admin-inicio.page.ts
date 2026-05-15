@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import {
   IonContent, IonHeader, IonTitle, IonToolbar, IonButtons,
   IonMenuButton, IonSearchbar, IonIcon, IonFab, IonFabButton,
-  IonFabList, AlertController, IonLabel
+  IonFabList, AlertController, IonLabel, IonRefresher, IonRefresherContent
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { add, createOutline, trashOutline, filmOutline,
@@ -24,7 +24,7 @@ import {SessionService} from "../../services/session.service";
     CommonModule,
     IonContent, IonHeader, IonTitle, IonToolbar, IonButtons,
     IonMenuButton, IonSearchbar, IonIcon, IonFab, IonFabButton,
-    IonFabList, FiltroPipe
+    IonFabList, FiltroPipe, IonRefresher, IonRefresherContent
   ],
 })
 export class AdminInicioPage implements OnInit, OnDestroy {
@@ -58,6 +58,10 @@ export class AdminInicioPage implements OnInit, OnDestroy {
     });
     this.loadPeliculas();
     this.startBannerAuto();
+  }
+
+  ionViewWillEnter() {
+    this.loadPeliculas();
   }
 
   ngOnDestroy() {
@@ -128,5 +132,18 @@ export class AdminInicioPage implements OnInit, OnDestroy {
   }
   irAPerfil() {
     this.router.navigate(['/perfil']);
+  }
+  recargar(event: any) {
+    this.loadPeliculas(); // o el métodoo de carga que tenga cada página
+    setTimeout(() => event.target.complete(), 1000);
+  }
+  readonly yearActual = new Date().getFullYear();
+
+  get estrenos(): Pelicula[] {
+    return this.peliculaList.filter(p => p.year === this.yearActual);
+  }
+
+  get reestrenos(): Pelicula[] {
+    return this.peliculaList.filter(p => p.year < this.yearActual);
   }
 }

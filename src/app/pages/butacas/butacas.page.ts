@@ -55,7 +55,7 @@ export class ButacasPage implements OnInit {
   }
 
   getLetraFila(index: number): string {
-    return String.fromCharCode(65 + index); // A, B, C...
+    return String.fromCharCode(65 + index);
   }
 
   isSeleccionado(fila: number, columna: number): boolean {

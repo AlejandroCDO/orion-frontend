@@ -22,7 +22,6 @@ export class AdminAnadirSesionPage implements OnInit {
   private readonly toastService = inject(ToastService);
   private readonly router = inject(Router);
 
-  // Lista completa de películas
   todasPeliculas: Pelicula[] = [];
   peliculasFiltradas: Pelicula[] = [];
   peliculaSeleccionada: Pelicula | null = null;
@@ -41,7 +40,7 @@ export class AdminAnadirSesionPage implements OnInit {
       reducido: 6.50,
       jubilado: 5.90,
     },
-    asientos: [] as boolean[][], // se genera automáticamente en backend
+    asientos: [] as boolean[][],
   };
 
   constructor() {

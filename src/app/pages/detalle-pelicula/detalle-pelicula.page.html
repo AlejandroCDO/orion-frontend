@@ -1,6 +1,14 @@
 <app-header backUrl="/inicio"></app-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="recargar($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-outline"
+      pullingText="Tira para recargar"
+      refreshingSpinner="crescent"
+      refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
   <div class="page-content">
   <!-- INFO PRINCIPAL -->
   <div class="info-card">

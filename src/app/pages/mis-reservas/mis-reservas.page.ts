@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { IonContent, IonIcon, AlertController } from '@ionic/angular/standalone';
+import {IonContent, IonIcon, AlertController, IonRefresher, IonRefresherContent} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { ticketOutline, timeOutline, locationOutline,
   trashOutline, filmOutline } from 'ionicons/icons';
@@ -14,7 +14,7 @@ import { HeaderComponent } from '../../components/header/header.component';
   templateUrl: './mis-reservas.page.html',
   styleUrls: ['./mis-reservas.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonContent, IonIcon, HeaderComponent],
+  imports: [CommonModule, IonContent, IonIcon, HeaderComponent, IonRefresher, IonRefresherContent],
 })
 export class MisReservasPage implements OnInit {
   private readonly dataService = inject(DataService);
@@ -32,6 +32,10 @@ export class MisReservasPage implements OnInit {
   }
 
   ngOnInit() {
+    this.cargarReservas();
+  }
+
+  ionViewWillEnter() {
     this.cargarReservas();
   }
 
@@ -62,6 +66,11 @@ export class MisReservasPage implements OnInit {
         this.cargando = false;
       }
     });
+  }
+
+  recargar(event: any) {
+    this.cargarReservas();
+    setTimeout(() => event.target.complete(), 1000);
   }
 
   async cancelar(reservaId: string) {

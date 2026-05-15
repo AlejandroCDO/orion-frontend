@@ -1,6 +1,13 @@
 <app-header backUrl="/inicio"></app-header>
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="recargar($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-outline"
+      pullingText="Tira para recargar"
+      refreshingSpinner="crescent"
+      refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
   @if (cargando) {
     <div class="empty-state">
       <ion-icon name="film-outline"></ion-icon>

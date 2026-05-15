@@ -79,7 +79,6 @@ export class EntradasPage implements OnInit {
       await this.toastService.mostrarToast('Selecciona al menos una entrada', 'warning');
       return;
     }
-    // Navegar a selección de asientos pasando los datos necesarios
     this.router.navigate(['/butacas', this.sesion._id], {
       queryParams: {
         hora: this.horaSeleccionada,

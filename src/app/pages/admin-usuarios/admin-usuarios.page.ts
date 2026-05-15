@@ -2,8 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonContent, IonIcon, IonSearchbar, IonHeader, IonToolbar,
-  IonTitle, IonButtons, IonMenuButton, AlertController } from '@ionic/angular/standalone';
+import {
+  IonContent, IonIcon, IonSearchbar, IonHeader, IonToolbar,
+  IonTitle, IonButtons, IonMenuButton, AlertController, IonRefresher, IonRefresherContent
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { personOutline, trashOutline, chevronDownOutline,
   chevronUpOutline, starOutline, star, mailOutline, callOutline } from 'ionicons/icons';
@@ -17,10 +19,9 @@ import { HeaderComponent } from '../../components/header/header.component';
   styleUrls: ['./admin-usuarios.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, IonContent, IonIcon,
-    IonSearchbar, IonHeader, IonToolbar, IonTitle,
-    IonButtons, IonMenuButton, HeaderComponent],
+    IonSearchbar, HeaderComponent, IonRefresher, IonRefresherContent],
 })
-export class AdminUsuariosPage implements OnInit {
+export class AdminUsuariosPage {
   private readonly dataService = inject(DataService);
   private readonly toastService = inject(ToastService);
   private readonly router = inject(Router);
@@ -38,8 +39,8 @@ export class AdminUsuariosPage implements OnInit {
       chevronUpOutline, starOutline, star, mailOutline, callOutline });
   }
 
-  ngOnInit() {
-    this.cargarUsuarios();
+  ionViewWillEnter() {
+    this.cargarUsuarios()
   }
 
   get usuariosFiltrados(): any[] {
@@ -65,7 +66,10 @@ export class AdminUsuariosPage implements OnInit {
       }
     });
   }
-
+  recargar(event: any) {
+    this.cargarUsuarios();
+    setTimeout(() => event.target.complete(), 1000);
+  }
   buscar(event: any) {
     this.textoBuscar = event.detail.value;
   }

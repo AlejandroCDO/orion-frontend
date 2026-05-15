@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonContent, IonIcon, AlertController } from '@ionic/angular/standalone';
+import {IonContent, IonIcon, AlertController, IonRefresher, IonRefresherContent} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { starOutline, star, trashOutline, createOutline,
   checkmarkOutline, closeOutline, filmOutline } from 'ionicons/icons';
@@ -15,7 +15,7 @@ import { HeaderComponent } from '../../components/header/header.component';
   templateUrl: './mis-resenas.page.html',
   styleUrls: ['./mis-resenas.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonContent, IonIcon, HeaderComponent],
+  imports: [CommonModule, FormsModule, IonContent, IonIcon, HeaderComponent, IonRefresher, IonRefresherContent],
 })
 export class MisResenasPage implements OnInit {
   private readonly dataService = inject(DataService);
@@ -44,6 +44,10 @@ export class MisResenasPage implements OnInit {
     this.cargarResenas();
   }
 
+  ionViewWillEnter() {
+    this.cargarResenas();
+  }
+
   private cargarResenas() {
     const userId = localStorage.getItem('userId');
     if (!userId) return;
@@ -59,7 +63,10 @@ export class MisResenasPage implements OnInit {
       }
     });
   }
-
+  recargar(event: any) {
+    this.cargarResenas();
+    setTimeout(() => event.target.complete(), 1000);
+  }
   abrirEdicion(v: any) {
     this.editandoId = v._id;
     this.formEdicion = {

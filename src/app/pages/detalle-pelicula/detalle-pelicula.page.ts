@@ -2,7 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonContent, IonIcon, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonIcon,
+  IonRefresher,
+  IonRefresherContent,
+  IonSelect,
+  IonSelectOption
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { chevronDownOutline, locationOutline, star, starOutline, starHalf, trashOutline } from 'ionicons/icons';
 import { DataService } from '../../services/data-service';
@@ -14,7 +21,7 @@ import { HeaderComponent } from '../../components/header/header.component';
   templateUrl: './detalle-pelicula.page.html',
   styleUrls: ['./detalle-pelicula.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonContent, IonSelect, IonSelectOption, HeaderComponent, IonIcon],
+  imports: [CommonModule, FormsModule, IonContent, IonSelect, IonSelectOption, HeaderComponent, IonIcon, IonRefresher, IonRefresherContent],
 })
 export class DetallePeliculaPage implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -26,7 +33,6 @@ export class DetallePeliculaPage implements OnInit {
   diasDisponibles: { label: string; valor: string }[] = [];
   fechaSeleccionada: string = '';
 
-  // Valoraciones
   valoraciones: any[] = [];
   miValoracion: any = null;
   estrellaSeleccionada: number = 0;
@@ -43,8 +49,17 @@ export class DetallePeliculaPage implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.generarDias(); // primero generamos los días
-      this.cargarPelicula(id); // luego cargamos (ya tiene fechaSeleccionada)
+      this.generarDias();
+      this.cargarPelicula(id);
+      this.cargarValoraciones(id);
+      this.cargarMiValoracion(id);
+    }
+  }
+
+  ionViewWillEnter() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.cargarPelicula(id);
       this.cargarValoraciones(id);
       this.cargarMiValoracion(id);
     }
@@ -96,7 +111,7 @@ export class DetallePeliculaPage implements OnInit {
         this.mostrarFormValoracion = false;
         this.guardandoValoracion = false;
         this.cargarValoraciones(peliculaId);
-        // Actualiza la media en la pelicula local
+
         if (this.pelicula) {
           this.dataService.getPeliculaById(peliculaId).subscribe({
             next: (d) => { this.pelicula = d.pelicula; }
@@ -200,5 +215,15 @@ export class DetallePeliculaPage implements OnInit {
     if (Array.isArray(hora)) return hora;
     if (typeof hora === 'string') return hora.split(',').map(h => h.trim());
     return [];
+  }
+
+  recargar(event: any) {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.cargarPelicula(id);
+      this.cargarValoraciones(id);
+      this.cargarMiValoracion(id);
+    }
+    setTimeout(() => event.target.complete(), 1000);
   }
 }

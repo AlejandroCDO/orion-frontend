@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>ORION</ion-title>
     <ion-buttons slot="end">
-      <div class="avatar" (click)="irAPerfil()">{{ userInitial }}</div>
+      <div class="avatar avatar-admin" (click)="irAPerfil()">{{ userInitial }}</div>
     </ion-buttons>
   </ion-toolbar>
   <ion-searchbar
@@ -15,7 +15,14 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="recargar($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-outline"
+      pullingText="Tira para recargar"
+      refreshingSpinner="crescent"
+      refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
   <!-- BANNER -->
   <div class="banner-wrapper">
     <div class="banner-slider" #slider>
@@ -32,24 +39,49 @@
     </div>
   </div>
 
-  <!-- GRID DE PELÍCULAS -->
-  <div class="grid">
-    @for (pelicula of peliculaList | filtro: textoBuscar: 'titulo'; track pelicula._id) {
-      <div class="pelicula-card">
-        <img [src]="pelicula.posterURL" [alt]="pelicula.titulo" class="poster"
-             (click)="verDetalle(pelicula._id)"/>
-        <p class="titulo">{{ pelicula.titulo }}</p>
-        <div class="card-actions">
-          <button class="action-btn edit" (click)="editarPelicula(pelicula._id)">
-            <ion-icon name="create-outline"></ion-icon>
-          </button>
-          <button class="action-btn delete" (click)="eliminarPelicula(pelicula._id, pelicula.titulo)">
-            <ion-icon name="trash-outline"></ion-icon>
-          </button>
+  <!-- ESTRENOS -->
+  @if ((estrenos | filtro: textoBuscar: 'titulo').length > 0) {
+    <h2 class="seccion-titulo">Estrenos</h2>
+    <div class="grid">
+      @for (pelicula of estrenos | filtro: textoBuscar: 'titulo'; track pelicula._id) {
+        <div class="pelicula-card">
+          <img [src]="pelicula.posterURL" [alt]="pelicula.titulo" class="poster"
+               (click)="verDetalle(pelicula._id)"/>
+          <p class="titulo">{{ pelicula.titulo }}</p>
+          <div class="card-actions">
+            <button class="action-btn edit" (click)="editarPelicula(pelicula._id)">
+              <ion-icon name="create-outline"></ion-icon>
+            </button>
+            <button class="action-btn delete" (click)="eliminarPelicula(pelicula._id, pelicula.titulo)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </button>
+          </div>
         </div>
-      </div>
-    }
-  </div>
+      }
+    </div>
+  }
+
+  <!-- REESTRENOS -->
+  @if ((reestrenos | filtro: textoBuscar: 'titulo').length > 0) {
+    <h2 class="seccion-titulo">Reestrenos</h2>
+    <div class="grid">
+      @for (pelicula of reestrenos | filtro: textoBuscar: 'titulo'; track pelicula._id) {
+        <div class="pelicula-card">
+          <img [src]="pelicula.posterURL" [alt]="pelicula.titulo" class="poster"
+               (click)="verDetalle(pelicula._id)"/>
+          <p class="titulo">{{ pelicula.titulo }}</p>
+          <div class="card-actions">
+            <button class="action-btn edit" (click)="editarPelicula(pelicula._id)">
+              <ion-icon name="create-outline"></ion-icon>
+            </button>
+            <button class="action-btn delete" (click)="eliminarPelicula(pelicula._id, pelicula.titulo)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
 
   @if ((peliculaList | filtro: textoBuscar: 'titulo').length === 0) {
     <div class="no-results">

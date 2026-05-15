@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'app-tfg-ionic',
+  appId: 'com.orion.app',
+  appName: 'Orion',
   webDir: 'www'
 };
 
